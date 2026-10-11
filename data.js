@@ -58,3 +58,16 @@ window.CONTACTS = {
     { name: "TikTok",    url: "#" }
   ]
 };
+
+// Сниппеты для вкладки «Видео». src — mp4 в папке video/, либо url — ссылка на VK Видео/YouTube для встраивания.
+// Пока видео нет — карточка показывает обложку, а плеер пишет «скоро».
+window.VIDEOS = [
+  { title: "Тәрҗемә",      tag: "Сниппет",       duration: "0:30", poster: "img/snip-1.webp", src: "", url: "" },
+  { title: "Дискотека",    tag: "Сниппет",       duration: "0:25", poster: "img/snip-2.webp", src: "", url: "" },
+  { title: "Белорецк",     tag: "С концерта",    duration: "0:45", poster: "img/snip-3.webp", src: "", url: "" },
+  { title: "Кызыл",        tag: "Сниппет",       duration: "0:30", poster: "img/snip-4.webp", src: "", url: "" },
+  { title: "Бэкстейдж",    tag: "Съёмка клипа",  duration: "1:10", poster: "img/snip-5.webp", src: "", url: "" },
+  { title: "Төнгө ҡала",   tag: "Сниппет",       duration: "0:28", poster: "img/snip-6.webp", src: "", url: "" },
+  { title: "Сибай",        tag: "С концерта",    duration: "0:52", poster: "img/snip-7.webp", src: "", url: "" },
+  { title: "Новый трек",   tag: "Скоро",         duration: "0:20", poster: "img/snip-8.webp", src: "", url: "" }
+];

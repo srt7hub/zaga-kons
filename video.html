@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Видео — ZAGA</title>
+  <meta name="description" content="Сниппеты новых треков, видео с концертов и бэкстейдж ZAGA.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Видео — ZAGA">
+  <meta property="og:image" content="img/more-bw.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-video">
+
+<a class="skip" href="#videos">К видео</a>
+
+<header class="header is-solid" id="header">
+  <div class="header__inner">
+    <a class="logo" href="./" aria-label="ZAGA — на главную">ZAGA</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="./#concerts">Концерты</a>
+      <a href="./#music">Музыка</a>
+      <a href="video.html" class="is-active" aria-current="page">Видео</a>
+      <a href="./#shop">Магазин</a>
+      <a href="./#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn--red btn--sm header__cta" href="./#concerts">Билеты</a>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Мобильное меню">
+    <a href="./#concerts">Концерты</a>
+    <a href="./#music">Музыка</a>
+    <a href="video.html" aria-current="page">Видео</a>
+    <a href="./#shop">Магазин</a>
+    <a href="./#contacts">Контакты</a>
+  </nav>
+  <div class="menu__socials" data-socials></div>
+</div>
+
+<main>
+  <section class="vhead">
+    <img class="vhead__bg" src="img/more-bw.webp" alt="" width="1400" height="1000">
+    <div class="container">
+      <p class="eyebrow">ZAGA <span class="more__slash">/</span> Tour 2026</p>
+      <h1 class="more__title">Больше<br>чем музыка</h1>
+      <p class="vhead__lead">Сниппеты новых треков, моменты с концертов и то, что остаётся за кадром.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-label="Видео">
+    <div class="container">
+      <ul class="snips" id="videos"></ul>
+    </div>
+  </section>
+
+  <section class="vcta">
+    <div class="container vcta__inner">
+      <h2 class="section__title">Увидимся<br>вживую</h2>
+      <a class="btn btn--red btn--lg" href="./#concerts">Купить билет</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="logo logo--sm">ZAGA</span>
+    <p>Билеты продаёт сервис Qtickets. Оферта и правила возврата — на странице оплаты.</p>
+    <p class="footer__legal">ИП Фамилия Имя Отчество · ИНН 000000000000 · © 2026</p>
+  </div>
+</footer>
+
+<dialog class="modal modal--video" id="videoModal" aria-labelledby="videoTitle">
+  <div class="modal__head">
+    <div>
+      <p class="eyebrow eyebrow--red" id="videoTag"></p>
+      <h3 class="modal__title" id="videoTitle"></h3>
+    </div>
+    <button class="modal__close" data-modal-close aria-label="Закрыть">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="modal__body" data-modal-body></div>
+</dialog>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

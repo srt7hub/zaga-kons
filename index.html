@@ -26,6 +26,7 @@
     <nav class="nav" aria-label="Основное меню">
       <a href="#concerts">Концерты</a>
       <a href="#music">Музыка</a>
+      <a href="video.html">Видео</a>
       <a href="#shop">Магазин</a>
       <a href="#contacts">Контакты</a>
     </nav>
@@ -40,6 +41,7 @@
   <nav aria-label="Мобильное меню">
     <a href="#concerts">Концерты</a>
     <a href="#music">Музыка</a>
+    <a href="video.html">Видео</a>
     <a href="#shop">Магазин</a>
     <a href="#contacts">Контакты</a>
   </nav>
@@ -61,8 +63,8 @@
       </h1>
       <div class="hero__next" id="heroNext"></div>
       <div class="hero__actions">
-        <a class="btn btn--red btn--lg" href="#concerts">Купить билет</a>
-        <a class="btn btn--ghost btn--lg" href="#music">Слушать</a>
+        <button class="btn btn--red btn--lg" id="heroBuy">Купить билет</button>
+        <a class="btn btn--ghost btn--lg" href="#concerts">Все даты</a>
       </div>
     </div>
     <a class="hero__scroll" href="#concerts" aria-label="Листать к афише">
@@ -89,6 +91,25 @@
       <ol class="tour" id="tour"></ol>
       <p class="tour__empty" id="tourEmpty" hidden>Новые даты скоро. Следите за анонсами в соцсетях.</p>
     </div>
+  </section>
+
+  <!-- БОЛЬШЕ ЧЕМ МУЗЫКА -->
+  <section class="more" aria-labelledby="more-title">
+    <a class="more__main" href="video.html">
+      <img class="more__bg" src="img/more-bw.webp" alt="" loading="lazy" width="1400" height="1000">
+      <div class="more__text">
+        <p class="eyebrow">ZAGA <span class="more__slash">/</span> Tour 2026</p>
+        <h2 class="more__title" id="more-title">Больше<br>чем музыка</h2>
+      </div>
+      <span class="play-cta">
+        <span class="play-cta__circle" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        <span class="play-cta__label">Смотреть<br>видео</span>
+      </span>
+    </a>
+    <a class="more__side" href="video.html" tabindex="-1" aria-hidden="true">
+      <img src="img/more-red.webp" alt="" loading="lazy" width="900" height="1000">
+      <span class="more__side-text">Сниппеты<br>Концерты<br>Бэкстейдж</span>
+    </a>
   </section>
 
   <!-- MUSIC -->
@@ -156,11 +177,11 @@
       <p class="eyebrow eyebrow--red" id="modalDate"></p>
       <h3 class="modal__title" id="modalTitle"></h3>
     </div>
-    <button class="modal__close" id="modalClose" aria-label="Закрыть">
+    <button class="modal__close" data-modal-close aria-label="Закрыть">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
     </button>
   </div>
-  <div class="modal__body" id="modalBody"></div>
+  <div class="modal__body" data-modal-body></div>
 </dialog>
 
 <script src="data.js"></script>
