@@ -103,27 +103,14 @@
     </div>
   </section>
 
-  <!-- БОЛЬШЕ ЧЕМ МУЗЫКА: лента сниппетов -->
-  <section class="more" aria-labelledby="more-title">
-    <img class="more__bg" src="img/more-bw.webp" alt="" loading="lazy" width="1400" height="1000">
-    <div class="reel" id="reel">
-      <div class="reel__intro">
-        <p class="eyebrow">ZAGA <span class="more__slash">/</span> Сниппеты</p>
-        <h2 class="more__title" id="more-title">Больше чем музыка</h2>
-        <a class="play-cta" href="video.html">
-          <span class="play-cta__circle" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-          <span class="play-cta__label">Все<br>видео</span>
-        </a>
-        <div class="reel__nav">
-          <button class="reel__btn" data-reel="-1" aria-label="Назад">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-          </button>
-          <button class="reel__btn" data-reel="1" aria-label="Дальше">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </button>
-        </div>
-      </div>
-      <ul class="reel__list" data-snips aria-label="Сниппеты"></ul>
+  <!-- СНИППЕТЫ: бесконечная лента -->
+  <section class="snippets" aria-labelledby="snippets-title">
+    <div class="container section__head">
+      <h2 class="section__title" id="snippets-title">Сниппеты</h2>
+      <a class="link-arrow" href="video.html">Все видео</a>
+    </div>
+    <div class="strip">
+      <ul class="strip__track" id="strip"></ul>
     </div>
   </section>
 

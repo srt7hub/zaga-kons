@@ -19,7 +19,9 @@ window.MUSIC = {
     { title: "Банда 02",         feat: "",                   duration: "2:33", cover: "video/banda-02.webp",          trailer: "audio/banda-02.m4a" },
     { title: "Ауылда диско",     feat: "",                   duration: "3:05", cover: "video/auyl.webp",              trailer: "audio/auyl.m4a" },
     { title: "Юрта",             feat: "",                   duration: "2:47", cover: "video/yurta.webp",             trailer: "audio/yurta.m4a" },
-    { title: "Яна йөрәк",        feat: "",                   duration: "3:12", cover: "video/yana-yorek.webp",        trailer: "audio/yana-yorek.m4a" }
+    { title: "Яна йөрәк",        feat: "",                   duration: "3:12", cover: "video/yana-yorek.webp",        trailer: "audio/yana-yorek.m4a" },
+    { title: "Новогодний трек",  feat: "",                   duration: "2:50", cover: "video/new-year.webp",          trailer: "audio/new-year.m4a" },
+    { title: "Новый трек",       feat: "",                   duration: "2:44", cover: "video/trek-v-seti.webp",       trailer: "audio/trek-v-seti.m4a" }
   ]
 };
 

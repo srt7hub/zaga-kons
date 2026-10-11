@@ -199,7 +199,8 @@
   // --- Сниппеты: лента на главной и сетка на вкладке «Видео» ---
   const V = window.VIDEOS || [];
   const lists = document.querySelectorAll("[data-snips]");
-  if (lists.length) {
+  const strip = $("#strip");
+  if (lists.length || strip) {
     const quiet = reduced() || navigator.connection?.saveData;
     lists.forEach(list => {
       list.innerHTML = V.map((v, i) => `
@@ -212,6 +213,18 @@
         </button></li>`).join("");
     });
 
+    // Бесконечная лента: набор роликов дважды подряд, анимация сдвигает ровно на один набор
+    if (strip) {
+      const card = (v, i, dup) => `
+        <li${dup ? ' aria-hidden="true"' : ""}><button class="strip__item" data-video="${i}" ${dup ? 'tabindex="-1"' : `aria-label="Смотреть: ${esc(v.title)}"`}>
+          <img src="video/${esc(v.slug)}.webp" alt="" loading="lazy" width="540" height="960">
+          ${quiet ? "" : `<video muted loop playsinline preload="none" data-src="video/${esc(v.slug)}-preview.mp4" aria-hidden="true"></video>`}
+          <span class="strip__title">${esc(v.title)}</span>
+        </button></li>`;
+      strip.innerHTML = V.map((v, i) => card(v, i, false)).join("") + V.map((v, i) => card(v, i, true)).join("");
+      strip.style.setProperty("--dur", V.length * 5 + "s");
+    }
+
     // Превью играют только пока карточка на экране
     const vio = new IntersectionObserver(es => es.forEach(e => {
       const vid = e.target;
@@ -219,8 +232,8 @@
         if (!vid.src) vid.src = vid.dataset.src;
         vid.play().then(() => vid.classList.add("is-playing")).catch(() => {});
       } else vid.pause();
-    }), { threshold: .55 });
-    document.querySelectorAll(".snip video").forEach(v => vio.observe(v));
+    }), { threshold: .2 });
+    document.querySelectorAll(".snip video, .strip__item video").forEach(v => vio.observe(v));
 
     // Плеер со звуком
     const modal = $("#videoModal");
@@ -237,26 +250,6 @@
       audio.pause();
       open();
     });
-  }
-
-  // Стрелки ленты (компьютер): на телефоне листается вся лента, на компьютере — только список
-  const reel = $("#reel");
-  if (reel) {
-    const list = $(".reel__list", reel);
-    const scroller = () => getComputedStyle(list).overflowX === "auto" ? list : reel;
-    const step = () => ($(".snip", reel)?.offsetWidth || 300) + 16;
-    const [prev, next] = reel.querySelectorAll("[data-reel]");
-    const upd = () => {
-      const s = scroller();
-      prev.disabled = s.scrollLeft < 8;
-      next.disabled = s.scrollLeft + s.clientWidth > s.scrollWidth - 8;
-    };
-    reel.addEventListener("click", e => {
-      const b = e.target.closest("[data-reel]");
-      if (b) scroller().scrollBy({ left: +b.dataset.reel * step() * 2, behavior: reduced() ? "auto" : "smooth" });
-    });
-    [reel, list].forEach(el => el.addEventListener("scroll", upd, { passive: true }));
-    addEventListener("resize", upd); upd();
   }
 
   // --- Контакты, соцсети ---
