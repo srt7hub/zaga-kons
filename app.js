@@ -14,7 +14,7 @@
 
   const tour = $("#tour");
   tour.innerHTML = concerts.map((c, i) => `
-    <li class="gig reveal">
+    <li class="gig">
       <time class="gig__date" datetime="${c.date}">
         <span class="gig__day">${String(c.d.getDate()).padStart(2, "0")}</span>
         <span class="gig__mon">${MON_SHORT[c.d.getMonth()]} · ${DAYS[c.d.getDay()]}</span>
@@ -46,7 +46,16 @@
     modal.showModal();
     document.body.classList.add("no-scroll");
   };
-  const closeTickets = () => modal.close();
+  const closeTickets = () => {
+    if (!modal.open || modal.classList.contains("is-closing")) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return modal.close();
+    modal.classList.add("is-closing");
+    let done = false;
+    const finish = () => { if (done) return; done = true; modal.classList.remove("is-closing"); modal.close(); };
+    modal.addEventListener("animationend", finish, { once: true });
+    setTimeout(finish, 300); // на случай, если анимация не запустилась
+  };
+  modal.addEventListener("cancel", e => { e.preventDefault(); closeTickets(); });
   modal.addEventListener("close", () => { document.body.classList.remove("no-scroll"); $("#modalBody").innerHTML = ""; });
   modal.addEventListener("click", e => { if (e.target === modal) closeTickets(); });
   $("#modalClose").addEventListener("click", closeTickets);
@@ -121,6 +130,14 @@
   const upd = () => sticky.classList.toggle("is-on", pastHero && !onTour);
   new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe($(".hero"));
   new IntersectionObserver(([e]) => { onTour = e.isIntersecting; upd(); }, { rootMargin: "0px 0px -20% 0px" }).observe($("#concerts"));
+
+  // --- Активный пункт меню ---
+  const navLinks = [...document.querySelectorAll(".nav a")];
+  const spy = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    navLinks.forEach(a => a.classList.toggle("is-active", a.hash === "#" + e.target.id));
+  }), { rootMargin: "-45% 0px -50% 0px" });
+  navLinks.forEach(a => { const s = $(a.hash); if (s) spy.observe(s); });
 
   // --- Появление при скролле ---
   const io = new IntersectionObserver(es => es.forEach(e => {
