@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ZAGA — концерты и билеты</title>
+  <meta name="description" content="Официальный сайт ZAGA. Афиша концертов и электронные билеты онлайн.">
+  <meta name="theme-color" content="#0a0a0a">
+  <meta property="og:title" content="ZAGA — концерты и билеты">
+  <meta property="og:description" content="Афиша тура и электронные билеты онлайн">
+  <meta property="og:image" content="img/hero-1400.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="img/hero-800.webp" imagesrcset="img/hero-800.webp 800w, img/hero-1400.webp 1400w" imagesizes="(min-width: 900px) 50vw, 100vw">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a class="skip" href="#concerts">К афише</a>
+
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="logo" href="#top" aria-label="ZAGA — наверх">ZAGA</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="#concerts">Концерты</a>
+      <a href="#music">Музыка</a>
+      <a href="#shop">Магазин</a>
+      <a href="#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn--red btn--sm header__cta" href="#concerts">Билеты</a>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Мобильное меню">
+    <a href="#concerts">Концерты</a>
+    <a href="#music">Музыка</a>
+    <a href="#shop">Магазин</a>
+    <a href="#contacts">Контакты</a>
+  </nav>
+  <div class="menu__socials" data-socials></div>
+</div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__media">
+      <img src="img/hero-800.webp" srcset="img/hero-800.webp 800w, img/hero-1400.webp 1400w"
+           sizes="(min-width: 900px) 50vw, 100vw" alt="ZAGA" width="800" height="1200" fetchpriority="high">
+    </div>
+    <div class="hero__content">
+      <p class="eyebrow">Концерт-дискотека · Тур 2026</p>
+      <h1 class="hero__title" aria-label="ZAGA">
+        <span>Z</span><span>A</span><span>G</span><span>A</span>
+      </h1>
+      <div class="hero__next" id="heroNext"></div>
+      <div class="hero__actions">
+        <a class="btn btn--red btn--lg" href="#concerts">Купить билет</a>
+        <a class="btn btn--ghost btn--lg" href="#music">Слушать</a>
+      </div>
+    </div>
+    <a class="hero__scroll" href="#concerts" aria-label="Листать к афише">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </a>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
+    </div>
+  </div>
+
+  <!-- CONCERTS -->
+  <section class="section" id="concerts" aria-labelledby="concerts-title">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title" id="concerts-title">Концерты</h2>
+        <p class="section__note">Электронный билет придёт на почту сразу после оплаты</p>
+      </div>
+      <ol class="tour" id="tour"></ol>
+      <p class="tour__empty" id="tourEmpty" hidden>Новые даты скоро. Следите за анонсами в соцсетях.</p>
+    </div>
+  </section>
+
+  <!-- MUSIC -->
+  <section class="section section--alt" id="music" aria-labelledby="music-title">
+    <div class="container music">
+      <figure class="music__cover reveal">
+        <img src="img/release.webp" alt="Обложка релиза" width="900" height="1350" loading="lazy" id="releaseCover">
+      </figure>
+      <div class="music__body">
+        <h2 class="section__title" id="music-title">Музыка</h2>
+        <p class="eyebrow eyebrow--red" id="releaseType"></p>
+        <p class="music__release" id="releaseTitle"></p>
+        <div class="platforms" id="platforms"></div>
+        <ol class="tracks" id="tracks"></ol>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP -->
+  <section class="section" id="shop" aria-labelledby="shop-title">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title" id="shop-title">Магазин</h2>
+        <a class="link-arrow" id="shopLink" href="#" target="_blank" rel="noopener">Весь мерч в Instagram</a>
+      </div>
+      <ul class="merch" id="merch"></ul>
+    </div>
+  </section>
+
+  <!-- CONTACTS -->
+  <section class="section section--alt contacts" id="contacts" aria-labelledby="contacts-title">
+    <div class="container contacts__grid">
+      <div>
+        <h2 class="section__title" id="contacts-title">Контакты</h2>
+        <p class="contacts__lead">Организация концертов, корпоративы и сотрудничество</p>
+        <div class="contact-card" id="contactCard"></div>
+      </div>
+      <div class="contacts__socials">
+        <p class="eyebrow">Соцсети</p>
+        <div class="socials" data-socials></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="logo logo--sm">ZAGA</span>
+    <p>Билеты продаёт сервис Qtickets. Оферта и правила возврата — на странице оплаты.</p>
+    <p class="footer__legal">ИП Фамилия Имя Отчество · ИНН 000000000000 · © 2026</p>
+  </div>
+</footer>
+
+<!-- Мобильная кнопка покупки -->
+<div class="sticky-buy" id="stickyBuy" aria-hidden="true">
+  <a class="btn btn--red btn--block" href="#concerts" tabindex="-1">Купить билет</a>
+</div>
+
+<!-- Окно покупки (виджет Qtickets) -->
+<dialog class="modal" id="ticketModal" aria-labelledby="modalTitle">
+  <div class="modal__head">
+    <div>
+      <p class="eyebrow eyebrow--red" id="modalDate"></p>
+      <h3 class="modal__title" id="modalTitle"></h3>
+    </div>
+    <button class="modal__close" id="modalClose" aria-label="Закрыть">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="modal__body" id="modalBody"></div>
+</dialog>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
