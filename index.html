@@ -57,7 +57,7 @@
            sizes="(min-width: 900px) 50vw, 100vw" alt="ZAGA" width="800" height="1200" fetchpriority="high">
     </div>
     <div class="hero__content">
-      <p class="eyebrow">Концерт-дискотека · Тур 2026</p>
+      <p class="eyebrow">Концерт-дискотека · Тур</p>
       <h1 class="hero__title" aria-label="ZAGA">
         <span>Z</span><span>A</span><span>G</span><span>A</span>
       </h1>
@@ -74,10 +74,10 @@
 
   <div class="marquee" aria-hidden="true">
     <div class="marquee__track">
-      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
-      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
-      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
-      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур 2026</span><i></i>
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур</span><i></i>
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур</span><i></i>
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур</span><i></i>
+      <span>ZAGA</span><i></i><span>Концерт-дискотека</span><i></i><span>Тур</span><i></i>
     </div>
   </div>
 
@@ -89,7 +89,14 @@
         <p class="section__note">Электронный билет придёт на почту сразу после оплаты</p>
       </div>
       <ol class="tour" id="tour"></ol>
-      <p class="tour__empty" id="tourEmpty" hidden>Новые даты скоро. Следите за анонсами в соцсетях.</p>
+      <div class="soon">
+        <span class="soon__pulse" aria-hidden="true"></span>
+        <div class="soon__text">
+          <p class="soon__title">Скоро — новые города</p>
+          <p class="muted">Готовим тур. Даты объявим первыми в соцсетях</p>
+        </div>
+        <div class="soon__links" data-socials-short></div>
+      </div>
     </div>
   </section>
 
@@ -117,18 +124,32 @@
     </div>
   </section>
 
-  <!-- MUSIC -->
-  <section class="section section--alt" id="music" aria-labelledby="music-title">
-    <div class="container music">
-      <figure class="music__cover reveal">
-        <img src="img/release.webp" alt="Обложка релиза" width="900" height="1350" loading="lazy" id="releaseCover">
-      </figure>
-      <div class="music__body">
-        <h2 class="section__title" id="music-title">Музыка</h2>
-        <p class="eyebrow eyebrow--red" id="releaseType"></p>
-        <p class="music__release" id="releaseTitle"></p>
-        <div class="platforms" id="platforms"></div>
-        <ol class="tracks" id="tracks"></ol>
+  <!-- MUSIC: в стиле страницы артиста -->
+  <section class="section music" id="music" aria-labelledby="music-title">
+    <div class="music__glow" aria-hidden="true"></div>
+    <div class="container music__grid">
+      <div class="artist">
+        <div class="artist__avatar">
+          <img src="img/release.webp" alt="ZAGA" width="900" height="1350" loading="lazy">
+        </div>
+        <div class="artist__info">
+          <p class="artist__label">Артист</p>
+          <h2 class="artist__name" id="music-title">ZAGA</h2>
+          <p class="artist__meta">Хип-хоп · Поп · Башкортостан</p>
+          <div class="artist__actions">
+            <a class="pill pill--play" id="artistListen" href="#" target="_blank" rel="noopener">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+              Слушать
+            </a>
+            <a class="pill pill--ghost" id="artistYandex" href="#" target="_blank" rel="noopener">Яндекс Музыка
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="popular">
+        <h3 class="popular__title">Популярные треки</h3>
+        <ol class="ptracks" id="ptracks"></ol>
       </div>
     </div>
   </section>

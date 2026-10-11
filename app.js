@@ -42,10 +42,11 @@
         <div class="gig__place">
           <span class="gig__city">${esc(c.city)}</span>
           <span class="gig__venue">${esc(c.venue)} · ${esc(c.time)}</span>
+          ${c.address ? `<a class="gig__addr" href="https://yandex.ru/maps/?text=${encodeURIComponent(c.city + ", " + c.address)}" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>${esc(c.address)}</a>` : ""}
         </div>
         <button class="btn btn--red gig__buy" data-gig="${i}">Купить билет</button>
       </li>`).join("");
-    $("#tourEmpty").hidden = concerts.length > 0;
 
     const next = concerts[0];
     const heroBuy = $("#heroBuy");
@@ -53,7 +54,7 @@
       $("#heroNext").innerHTML = `
         <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Ближайший концерт</p>
         <p class="hero__next-date">${next.d.getDate()} ${MONTHS[next.d.getMonth()]} · ${esc(next.city)}</p>
-        <p class="hero__next-venue">${esc(next.venue)} · ${esc(next.time)}</p>`;
+        <p class="hero__next-venue">${esc(next.venue)} · ${esc(next.time)}${next.address ? " · " + esc(next.address) : ""}</p>`;
       heroBuy.dataset.gig = "0";
     } else {
       heroBuy.addEventListener("click", () => $("#concerts").scrollIntoView());
@@ -85,21 +86,24 @@
     new IntersectionObserver(([e]) => { onTour = e.isIntersecting; upd(); }, { rootMargin: "0px 0px -20% 0px" }).observe($("#concerts"));
   }
 
-  // --- Музыка ---
-  const R = window.RELEASE;
-  if ($("#platforms") && R) {
-    $("#releaseType").textContent = "Новый релиз · " + R.type;
-    $("#releaseTitle").textContent = R.title;
-    $("#releaseCover").alt = `Обложка: ${R.title}`;
-    $("#platforms").innerHTML = R.links.map(l =>
-      `<a class="platform" href="${esc(l.url)}" target="_blank" rel="noopener">
-         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>${esc(l.name)}</a>`).join("");
-    $("#tracks").innerHTML = (window.TRACKS || []).map((t, i) => `
-      <li><a class="track" href="${esc(t.url)}" target="_blank" rel="noopener">
-        <span class="track__n">${String(i + 1).padStart(2, "0")}</span>
-        <span class="track__t">${esc(t.title)}</span>
-        <span class="track__y">${esc(t.year)}</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+  // --- Музыка: популярные треки ---
+  const M = window.MUSIC;
+  if ($("#ptracks") && M) {
+    $("#artistListen").href = $("#artistYandex").href = M.artistUrl;
+    const trackUrl = t => t.url || "https://music.yandex.ru/search?text=" + encodeURIComponent("ZaGa " + t.title);
+    $("#ptracks").innerHTML = M.tracks.map((t, i) => `
+      <li><a class="ptrack${i === 0 ? " is-current" : ""}" href="${esc(trackUrl(t))}" target="_blank" rel="noopener" aria-label="Слушать «${esc(t.title)}» на Яндекс Музыке">
+        <span class="ptrack__n">
+          <span class="ptrack__num">${i + 1}</span>
+          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+          <svg class="ptrack__play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </span>
+        <span class="ptrack__cover"><img src="${esc(t.cover)}" alt="" loading="lazy" width="96" height="96"></span>
+        <span class="ptrack__text">
+          <span class="ptrack__title">${esc(t.title)}</span>
+          <span class="ptrack__artist">ZaGa${t.feat ? ", " + esc(t.feat) : ""}</span>
+        </span>
+        <span class="ptrack__dur">${esc(t.duration)}</span>
       </a></li>`).join("");
   }
 
@@ -188,6 +192,10 @@
         <a class="btn btn--ghost" href="mailto:${esc(C.email)}">${esc(C.email)}</a>
       </div>`;
   }
+  document.querySelectorAll("[data-socials-short]").forEach(el => {
+    el.innerHTML = C.socials.filter(s => /Telegram|Instagram/.test(s.name))
+      .map(s => `<a class="btn btn--ghost btn--sm" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join("");
+  });
   document.querySelectorAll("[data-socials]").forEach(el => {
     el.innerHTML = C.socials.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join("");
   });

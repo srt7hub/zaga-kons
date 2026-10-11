@@ -240,6 +240,23 @@ h1, h2, h3, p, figure { margin: 0; }
 .gig__city { font: 700 26px/1.1 var(--f-display); text-transform: uppercase; overflow-wrap: anywhere; }
 .gig__venue { color: var(--muted); font-size: 15px; margin-top: 4px; }
 .gig__buy { grid-column: 1 / -1; margin-top: 12px; }
+.gig__addr {
+  display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-top: 6px; padding: 4px 0;
+  font-size: 14px; color: var(--text); border-bottom: 1px dashed rgba(255,255,255,.35); transition: color .2s, border-color .2s;
+}
+.gig__addr svg { color: var(--red-text); flex: none; }
+
+.soon {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px 16px; align-items: center;
+  margin-top: 24px; padding: 22px; border: 1px dashed rgba(255,255,255,.2); border-radius: 6px;
+}
+.soon__pulse { width: 12px; height: 12px; border-radius: 50%; background: var(--red-text); animation: pulse 2s infinite; }
+.soon__title { font: 700 22px/1.15 var(--f-display); text-transform: uppercase; margin-bottom: 4px; }
+.soon__links { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+@media (min-width: 700px) {
+  .soon { grid-template-columns: auto 1fr auto; padding: 28px 32px; }
+  .soon__links { grid-column: auto; }
+}
 
 @media (min-width: 700px) {
   .gig { grid-template-columns: 110px 1fr auto; gap: 24px; padding: 26px 8px; transition: background-color .25s var(--ease); }
@@ -251,35 +268,71 @@ h1, h2, h3, p, figure { margin: 0; }
     transform: scaleY(0); transition: transform .25s var(--ease);
   }
 }
-.tour__empty { padding: 32px 0; color: var(--muted); }
 
-/* ---------- Музыка ---------- */
-.music { display: grid; gap: 32px; }
-.music__cover { aspect-ratio: 1; overflow: hidden; border-radius: var(--radius); background: var(--surface-2); }
-.music__cover img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 20%; transition: transform .8s var(--ease); }
-.music__body { display: flex; flex-direction: column; gap: 12px; }
-.music__body .eyebrow { margin-top: 12px; }
-.music__release { font: 700 clamp(32px, 8vw, 48px)/1.05 var(--f-display); text-transform: uppercase; }
-.platforms { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-.platform {
-  display: flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 14px;
-  background: var(--surface-2); border: 1px solid var(--line); border-radius: var(--radius);
-  font-weight: 600; font-size: 14px; transition: border-color .2s, background-color .2s;
+/* ---------- Музыка: в стиле страницы артиста ---------- */
+.music { position: relative; overflow: hidden; isolation: isolate; background: var(--surface); }
+.music__glow {
+  position: absolute; z-index: -1; width: 720px; height: 720px; left: -240px; top: -260px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(227, 18, 11, .45), rgba(227, 18, 11, 0) 65%);
+  filter: blur(40px); animation: glow 9s ease-in-out infinite alternate;
 }
-.platform svg { color: var(--red-text); flex: none; }
-.tracks { margin-top: 24px; border-top: 1px solid var(--line); }
-.track {
-  display: grid; grid-template-columns: 36px 1fr auto 20px; gap: 12px; align-items: center;
-  min-height: 56px; border-bottom: 1px solid var(--line); transition: color .2s;
+.music__grid { display: grid; gap: 40px; }
+
+.artist { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
+.artist__avatar {
+  width: 140px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; flex: none;
+  box-shadow: 0 20px 60px -10px rgba(227, 18, 11, .55);
 }
-.track__n { color: var(--muted); font: 500 14px/1 var(--f-display); }
-.track__t { font-weight: 600; }
-.track__y { color: var(--muted); font-size: 14px; }
-.track svg { color: var(--muted); transition: color .2s, transform .2s var(--ease); }
+.artist__avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 25%; }
+.artist__label { font-size: 14px; font-weight: 600; color: var(--muted); }
+.artist__name { font: 700 clamp(64px, 18vw, 120px)/.9 var(--f-display); text-transform: uppercase; letter-spacing: -.01em; margin: 4px 0 8px; }
+.artist__meta { color: var(--muted); font-size: 15px; }
+.artist__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+.pill {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 22px; border-radius: 999px;
+  font: 700 15px/1 var(--f-body); transition: background-color .2s var(--ease), transform .16s ease-out, border-color .2s;
+}
+.pill:active { transform: scale(.96); }
+.pill--play { background: var(--red); color: #fff; padding-left: 18px; }
+.pill--ghost { border: 1px solid rgba(255,255,255,.25); }
+
+.popular__title { font: 700 24px/1.2 var(--f-body); margin-bottom: 8px; }
+.ptracks { counter-reset: none; }
+.ptrack {
+  display: grid; grid-template-columns: 28px 48px minmax(0, 1fr) auto; align-items: center; gap: 14px;
+  padding: 8px 10px; margin: 0 -10px; border-radius: 10px; min-height: 64px;
+  transition: background-color .2s var(--ease), transform .16s ease-out;
+}
+.ptrack:active { transform: scale(.98); }
+.ptrack__n { position: relative; display: grid; place-items: center; height: 24px; color: var(--muted); font: 600 15px/1 var(--f-body); }
+.ptrack__n > * { grid-area: 1 / 1; }
+.ptrack__play, .eq { opacity: 0; transition: opacity .15s; }
+.ptrack__cover { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; background: var(--surface-2); }
+.ptrack__cover img { width: 100%; height: 100%; object-fit: cover; }
+.ptrack__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+.ptrack__title { font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ptrack__artist { font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ptrack__dur { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; }
+
+/* «Играет сейчас» — эквалайзер вместо номера */
+.ptrack.is-current { background: rgba(255,255,255,.06); }
+.ptrack.is-current .ptrack__title { color: var(--red-text); }
+.ptrack.is-current .ptrack__num { opacity: 0; }
+.ptrack.is-current .eq { opacity: 1; }
+.eq { display: flex; align-items: flex-end; gap: 2px; height: 16px; }
+.eq i { width: 3px; background: var(--red-text); border-radius: 1px; animation: eq 1s ease-in-out infinite; }
+.eq i:nth-child(1) { height: 60%; animation-delay: -.2s; }
+.eq i:nth-child(2) { height: 100%; animation-delay: -.5s; }
+.eq i:nth-child(3) { height: 40%; animation-delay: -.8s; }
 
 @media (min-width: 900px) {
-  .music { grid-template-columns: 5fr 6fr; gap: 72px; align-items: center; }
-  .music__cover { aspect-ratio: 4 / 5; }
+  .music__grid { grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; }
+  .artist { position: sticky; top: calc(var(--header-h) + 32px); }
+  .artist__avatar { width: 200px; }
+  .popular__title { font-size: 28px; margin-bottom: 16px; }
+  .ptrack { grid-template-columns: 32px 56px minmax(0, 1fr) auto; min-height: 76px; }
+  .ptrack__cover { width: 56px; height: 56px; }
+  .ptrack__title { font-size: 17px; }
 }
 
 /* ---------- Магазин ---------- */
@@ -495,13 +548,15 @@ h1, h2, h3, p, figure { margin: 0; }
 @media (hover: hover) and (pointer: fine) {
   .gig:hover { background: rgba(255, 255, 255, .03); }
   .gig:hover::before { transform: scaleY(1); }
-  .music__cover:hover img { transform: scale(1.04); }
-  .platform:hover { border-color: rgba(255, 255, 255, .4); background: #222; }
-  .track:hover { color: var(--red-text); }
-  .track:hover svg { color: var(--red-text); transform: translate(2px, -2px); }
+  .ptrack:hover { background: rgba(255,255,255,.08); }
+  .ptrack:hover .ptrack__num, .ptrack:hover .eq { opacity: 0; }
+  .ptrack:hover .ptrack__play { opacity: 1; color: var(--text); }
+  .pill--play:hover { background: var(--red-hover); }
+  .pill--ghost:hover { border-color: var(--text); }
   .item:hover .item__img img { transform: scale(1.05); }
   .socials a:hover { color: var(--red-text); transform: translateX(8px); }
   .link-arrow:hover { color: var(--red-text); }
+  .gig__addr:hover { color: var(--red-text); border-color: var(--red-text); }
   .hero__scroll:hover { color: var(--text); border-color: var(--text); }
   .play-cta:hover .play-cta__circle { background: var(--red); border-color: var(--red); }
   .reel__btn:not(:disabled):hover { background: var(--text); color: var(--bg); border-color: var(--text); }
@@ -510,8 +565,8 @@ h1, h2, h3, p, figure { margin: 0; }
 }
 
 /* ---------- Отклик на нажатие ---------- */
-.platform, .track, .item__img, .socials a { transition-property: color, background-color, border-color, transform; }
-.platform:active, .track:active, .socials a:active { transform: scale(.97); transition-duration: 140ms; }
+.item__img, .socials a { transition-property: color, background-color, border-color, transform; }
+.socials a:active { transform: scale(.97); transition-duration: 140ms; }
 .item:active .item__img { transform: scale(.97); transition: transform 140ms ease-out; }
 .item__img { transition: transform 200ms var(--ease); }
 
@@ -525,6 +580,8 @@ h1, h2, h3, p, figure { margin: 0; }
 @keyframes marquee { to { transform: translateX(-50%); } }
 @keyframes bob { 50% { translate: -50% 6px; } }
 @keyframes sheetIn { from { transform: translateY(100%); } to { transform: none; } }
+@keyframes eq { 0%, 100% { transform: scaleY(.35); } 50% { transform: scaleY(1); } }
+@keyframes glow { to { transform: translate(120px, 80px) scale(1.15); } }
 @keyframes ring { 0% { transform: scale(1); opacity: .9; } 80%, 100% { transform: scale(1.45); opacity: 0; } }
 @keyframes sheetOut { to { transform: translateY(100%); } }
 @keyframes fadeDown { to { opacity: 0; transform: translateY(12px); } }
