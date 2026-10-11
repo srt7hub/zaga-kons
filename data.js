@@ -11,7 +11,7 @@ window.CONCERTS = [
 window.MUSIC = {
   artistUrl: "https://music.yandex.ru/search?text=ZaGa",
   listeners: "66 725",
-  avatar: "img/release.webp",
+  avatar: "img/artist.webp",
   // trailer — нарезка самой популярной части (audio/<slug>.m4a). Пока вырезана из рилсов, заменить на свои нарезки.
   tracks: [
     { title: "Это Башкортостан", feat: "",                   duration: "2:41", cover: "video/eto-bashkortostan.webp", trailer: "audio/eto-bashkortostan.m4a" },
