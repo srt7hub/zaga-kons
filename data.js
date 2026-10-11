@@ -59,15 +59,14 @@ window.CONTACTS = {
   ]
 };
 
-// Сниппеты для вкладки «Видео». src — mp4 в папке video/, либо url — ссылка на VK Видео/YouTube для встраивания.
-// Пока видео нет — карточка показывает обложку, а плеер пишет «скоро».
+// Сниппеты: video/<slug>.mp4 — полное видео, <slug>-preview.mp4 — беззвучное превью для карточки, <slug>.webp — обложка.
 window.VIDEOS = [
-  { title: "Тәрҗемә",      tag: "Сниппет",       duration: "0:30", poster: "img/snip-1.webp", src: "", url: "" },
-  { title: "Дискотека",    tag: "Сниппет",       duration: "0:25", poster: "img/snip-2.webp", src: "", url: "" },
-  { title: "Белорецк",     tag: "С концерта",    duration: "0:45", poster: "img/snip-3.webp", src: "", url: "" },
-  { title: "Кызыл",        tag: "Сниппет",       duration: "0:30", poster: "img/snip-4.webp", src: "", url: "" },
-  { title: "Бэкстейдж",    tag: "Съёмка клипа",  duration: "1:10", poster: "img/snip-5.webp", src: "", url: "" },
-  { title: "Төнгө ҡала",   tag: "Сниппет",       duration: "0:28", poster: "img/snip-6.webp", src: "", url: "" },
-  { title: "Сибай",        tag: "С концерта",    duration: "0:52", poster: "img/snip-7.webp", src: "", url: "" },
-  { title: "Новый трек",   tag: "Скоро",         duration: "0:20", poster: "img/snip-8.webp", src: "", url: "" }
+  { slug: "auyl",              title: "Ауылда диско",      tag: "Скоро релиз", duration: "0:33" },
+  { slug: "eto-bashkortostan", title: "Это Башкортостан",  tag: "Сниппет",     duration: "0:51" },
+  { slug: "yaz-kile",          title: "Яз килә 2.0",       tag: "В сети · с Рустамом Гиззатуллиным", duration: "0:29" },
+  { slug: "yana-yorek",        title: "Яна йөрәк",         tag: "Скоро релиз", duration: "0:36" },
+  { slug: "banda-02",          title: "Банда 02",          tag: "В сети",      duration: "0:31" },
+  { slug: "yurta",             title: "Юрта",              tag: "Скоро релиз", duration: "0:32" },
+  { slug: "new-year",          title: "Новогодний трек",   tag: "Сниппет",     duration: "0:37" },
+  { slug: "trek-v-seti",       title: "Новый трек",        tag: "В сети",      duration: "0:32" }
 ];

@@ -93,23 +93,28 @@
     </div>
   </section>
 
-  <!-- БОЛЬШЕ ЧЕМ МУЗЫКА -->
+  <!-- БОЛЬШЕ ЧЕМ МУЗЫКА: лента сниппетов -->
   <section class="more" aria-labelledby="more-title">
-    <a class="more__main" href="video.html">
-      <img class="more__bg" src="img/more-bw.webp" alt="" loading="lazy" width="1400" height="1000">
-      <div class="more__text">
-        <p class="eyebrow">ZAGA <span class="more__slash">/</span> Tour 2026</p>
-        <h2 class="more__title" id="more-title">Больше<br>чем музыка</h2>
+    <img class="more__bg" src="img/more-bw.webp" alt="" loading="lazy" width="1400" height="1000">
+    <div class="reel" id="reel">
+      <div class="reel__intro">
+        <p class="eyebrow">ZAGA <span class="more__slash">/</span> Сниппеты</p>
+        <h2 class="more__title" id="more-title">Больше чем музыка</h2>
+        <a class="play-cta" href="video.html">
+          <span class="play-cta__circle" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          <span class="play-cta__label">Все<br>видео</span>
+        </a>
+        <div class="reel__nav">
+          <button class="reel__btn" data-reel="-1" aria-label="Назад">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+          </button>
+          <button class="reel__btn" data-reel="1" aria-label="Дальше">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+        </div>
       </div>
-      <span class="play-cta">
-        <span class="play-cta__circle" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-        <span class="play-cta__label">Смотреть<br>видео</span>
-      </span>
-    </a>
-    <a class="more__side" href="video.html" tabindex="-1" aria-hidden="true">
-      <img src="img/more-red.webp" alt="" loading="lazy" width="900" height="1000">
-      <span class="more__side-text">Сниппеты<br>Концерты<br>Бэкстейдж</span>
-    </a>
+      <ul class="reel__list" data-snips aria-label="Сниппеты"></ul>
+    </div>
   </section>
 
   <!-- MUSIC -->
@@ -176,6 +181,20 @@
     <div>
       <p class="eyebrow eyebrow--red" id="modalDate"></p>
       <h3 class="modal__title" id="modalTitle"></h3>
+    </div>
+    <button class="modal__close" data-modal-close aria-label="Закрыть">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="modal__body" data-modal-body></div>
+</dialog>
+
+<!-- Плеер сниппетов -->
+<dialog class="modal modal--video" id="videoModal" aria-labelledby="videoTitle">
+  <div class="modal__head">
+    <div>
+      <p class="eyebrow eyebrow--red" id="videoTag"></p>
+      <h3 class="modal__title" id="videoTitle"></h3>
     </div>
     <button class="modal__close" data-modal-close aria-label="Закрыть">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>

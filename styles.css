@@ -328,58 +328,69 @@ h1, h2, h3, p, figure { margin: 0; }
 }
 
 
-/* ---------- Больше чем музыка ---------- */
-.more { display: grid; background: var(--bg); }
-.more__main {
-  position: relative; display: flex; flex-direction: column; justify-content: flex-end; gap: 28px;
-  min-height: 78svh; padding: 48px var(--gutter); overflow: hidden; isolation: isolate;
-}
+/* ---------- Больше чем музыка: лента сниппетов ---------- */
+.more { position: relative; overflow: hidden; isolation: isolate; padding: 72px 0; background: var(--bg); }
 .more__bg {
-  position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 72% 30%;
-  transition: transform 1.2s var(--ease);
+  position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 30% 30%;
+  opacity: .28;
 }
-.more__main::before {
+.more::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
-  background:
-    linear-gradient(to right, rgba(10,10,10,.85) 0%, rgba(10,10,10,.2) 70%),
-    linear-gradient(to top, rgba(10,10,10,.9) 0%, rgba(10,10,10,0) 50%, rgba(10,10,10,.5) 100%);
+  background: linear-gradient(to right, rgba(10,10,10,.55), rgba(10,10,10,.9) 60%), linear-gradient(to top, var(--bg), rgba(10,10,10,0) 40%);
 }
 .more__slash { color: var(--red-text); margin: 0 6px; }
 .more__title {
   font: 700 clamp(56px, 17vw, 132px)/.9 var(--f-display); text-transform: uppercase; letter-spacing: -.01em; margin-top: 12px;
 }
-.play-cta { display: inline-flex; align-items: center; gap: 16px; align-self: flex-start; }
+.play-cta { display: inline-flex; align-items: center; gap: 14px; align-self: flex-start; }
 .play-cta__circle {
-  width: 72px; height: 72px; border-radius: 50%; display: grid; place-items: center; flex: none;
-  border: 1.5px solid rgba(255,255,255,.7); background: rgba(10,10,10,.25); backdrop-filter: blur(6px);
+  width: 60px; height: 60px; border-radius: 50%; display: grid; place-items: center; flex: none; position: relative;
+  border: 1.5px solid rgba(255,255,255,.7); background: rgba(10,10,10,.25);
   transition: background-color .25s var(--ease), border-color .25s var(--ease), transform .16s ease-out;
-  position: relative;
 }
 .play-cta__circle svg { margin-left: 3px; }
 .play-cta__circle::after {
   content: ""; position: absolute; inset: -1px; border-radius: 50%; border: 1.5px solid var(--red);
   animation: ring 2.4s var(--ease) infinite;
 }
-.play-cta__label { font: 600 14px/1.35 var(--f-display); letter-spacing: .16em; text-transform: uppercase; }
-.more__main:active .play-cta__circle { transform: scale(.94); }
-.more__side { display: none; }
+.play-cta__label { font: 600 13px/1.35 var(--f-display); letter-spacing: .16em; text-transform: uppercase; }
+.play-cta:active .play-cta__circle { transform: scale(.94); }
+
+/* Телефон: текст — первый «слайд», справа выглядывает половина первой карточки */
+.reel {
+  display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory; scroll-padding-inline: var(--gutter); padding: 0 var(--gutter);
+  scrollbar-width: none;
+}
+.reel::-webkit-scrollbar, .reel__list::-webkit-scrollbar { display: none; }
+.reel__intro {
+  flex: 0 0 52vw; display: flex; flex-direction: column; justify-content: flex-end; gap: 20px; scroll-snap-align: start;
+}
+.reel__intro .more__title { font-size: clamp(40px, 12.5vw, 64px); }
+.reel__list { display: flex; gap: 12px; }
+.reel__list li { flex: 0 0 64vw; scroll-snap-align: start; }
+.reel__list li:last-child { margin-right: var(--gutter); }
+.reel__nav { display: none; }
 
 @media (min-width: 900px) {
-  .more { grid-template-columns: 1.7fr 1fr; }
-  .more__main { min-height: 640px; padding: 72px max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter))); }
-  .more__bg { left: 32%; width: 68%; object-position: 50% 30%; }
-  .more__main::before {
-    background:
-      linear-gradient(to right, var(--bg) 32%, rgba(10,10,10,.55) 50%, rgba(10,10,10,.1) 75%),
-      linear-gradient(to top, rgba(10,10,10,.8) 0%, rgba(10,10,10,0) 45%);
+  .more { padding: 120px 0; }
+  .reel {
+    display: grid; grid-template-columns: 380px minmax(0, 1fr); gap: 48px; overflow: visible; scroll-snap-type: none;
+    padding: 0 0 0 max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
   }
-  .more__main { padding-right: 56px; gap: 40px; flex-direction: column; align-items: flex-start; justify-content: flex-end; }
-  .more__title { font-size: clamp(80px, 7.6vw, 112px); }
-  .more__side { display: block; position: relative; overflow: hidden; }
-  .more__side img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
-  .more__side-text {
-    position: absolute; left: 40px; bottom: 56px; font: 600 14px/1.8 var(--f-display); letter-spacing: .18em; text-transform: uppercase;
+  .reel__intro .more__title { font-size: clamp(72px, 6.6vw, 104px); }
+  .reel__list {
+    gap: 16px; overflow-x: auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory; scrollbar-width: none;
+    padding-right: var(--gutter);
   }
+  .reel__list li { flex: 0 0 290px; }
+  .reel__nav { display: flex; gap: 8px; margin-top: 8px; }
+  .reel__btn {
+    width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.3);
+    transition: background-color .2s var(--ease), border-color .2s var(--ease), opacity .2s, transform .16s ease-out;
+  }
+  .reel__btn:active { transform: scale(.94); }
+  .reel__btn:disabled { opacity: .3; cursor: default; }
 }
 
 /* ---------- Страница «Видео» ---------- */
@@ -396,7 +407,9 @@ h1, h2, h3, p, figure { margin: 0; }
   background: var(--surface-2); text-align: left; isolation: isolate;
   transition: transform .16s ease-out;
 }
-.snip img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.snip img, .snip video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.snip video { opacity: 0; transition: opacity .4s var(--ease), transform .8s var(--ease); }
+.snip video.is-playing { opacity: 1; }
 .snip::after {
   content: ""; position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to top, rgba(10,10,10,.9) 0%, rgba(10,10,10,0) 45%), linear-gradient(to bottom, rgba(10,10,10,.45), rgba(10,10,10,0) 25%);
@@ -490,9 +503,9 @@ h1, h2, h3, p, figure { margin: 0; }
   .socials a:hover { color: var(--red-text); transform: translateX(8px); }
   .link-arrow:hover { color: var(--red-text); }
   .hero__scroll:hover { color: var(--text); border-color: var(--text); }
-  .more__main:hover .more__bg, .more__side:hover img { transform: scale(1.04); }
-  .more__main:hover .play-cta__circle { background: var(--red); border-color: var(--red); }
-  .snip:hover img { transform: scale(1.05); }
+  .play-cta:hover .play-cta__circle { background: var(--red); border-color: var(--red); }
+  .reel__btn:not(:disabled):hover { background: var(--text); color: var(--bg); border-color: var(--text); }
+  .snip:hover img, .snip:hover video { transform: scale(1.05); }
   .snip:hover .snip__play { background: var(--red); border-color: var(--red); }
 }
 

@@ -115,32 +115,65 @@
       </a></li>`).join("");
   }
 
-  // --- Видео (вкладка) ---
-  const grid = $("#videos");
-  if (grid) {
-    const V = window.VIDEOS || [];
-    grid.innerHTML = V.map((v, i) => `
-      <li><button class="snip" data-video="${i}" aria-label="Смотреть: ${esc(v.title)}">
-        <img src="${esc(v.poster)}" alt="" loading="${i < 4 ? "eager" : "lazy"}" width="540" height="960">
-        <span class="snip__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
-        <span class="snip__dur">${esc(v.duration)}</span>
-        <span class="snip__info"><span class="snip__tag">${esc(v.tag)}</span><span class="snip__title">${esc(v.title)}</span></span>
-      </button></li>`).join("");
+  // --- Сниппеты: лента на главной и сетка на вкладке «Видео» ---
+  const V = window.VIDEOS || [];
+  const lists = document.querySelectorAll("[data-snips]");
+  if (lists.length) {
+    const quiet = reduced() || navigator.connection?.saveData;
+    lists.forEach(list => {
+      list.innerHTML = V.map((v, i) => `
+        <li><button class="snip" data-video="${i}" aria-label="Смотреть: ${esc(v.title)}">
+          <img src="video/${esc(v.slug)}.webp" alt="" loading="lazy" width="540" height="960">
+          ${quiet ? "" : `<video muted loop playsinline preload="none" data-src="video/${esc(v.slug)}-preview.mp4" aria-hidden="true"></video>`}
+          <span class="snip__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+          <span class="snip__dur">${esc(v.duration)}</span>
+          <span class="snip__info"><span class="snip__tag">${esc(v.tag)}</span><span class="snip__title">${esc(v.title)}</span></span>
+        </button></li>`).join("");
+    });
 
+    // Превью играют только пока карточка на экране
+    const vio = new IntersectionObserver(es => es.forEach(e => {
+      const vid = e.target;
+      if (e.isIntersecting) {
+        if (!vid.src) vid.src = vid.dataset.src;
+        vid.play().then(() => vid.classList.add("is-playing")).catch(() => {});
+      } else vid.pause();
+    }), { threshold: .55 });
+    document.querySelectorAll(".snip video").forEach(v => vio.observe(v));
+
+    // Плеер со звуком
     const modal = $("#videoModal");
     const open = setupModal(modal);
-    grid.addEventListener("click", e => {
+    document.addEventListener("click", e => {
       const b = e.target.closest("[data-video]");
       if (!b) return;
       const v = V[+b.dataset.video];
       $("#videoTitle").textContent = v.title;
       $("#videoTag").textContent = v.tag;
       $("[data-modal-body]", modal).innerHTML =
-        v.src ? `<video src="${esc(v.src)}" poster="${esc(v.poster)}" controls autoplay playsinline></video>`
-        : v.url ? `<iframe src="${esc(v.url)}" title="${esc(v.title)}" allow="autoplay; fullscreen; encrypted-media" allowfullscreen></iframe>`
-        : `<div class="player-stub" style="background-image:url('${esc(v.poster)}')"><p>Видео скоро появится</p></div>`;
+        `<video src="video/${esc(v.slug)}.mp4" poster="video/${esc(v.slug)}.webp" controls autoplay playsinline></video>`;
       open();
     });
+  }
+
+  // Стрелки ленты (компьютер): на телефоне листается вся лента, на компьютере — только список
+  const reel = $("#reel");
+  if (reel) {
+    const list = $(".reel__list", reel);
+    const scroller = () => getComputedStyle(list).overflowX === "auto" ? list : reel;
+    const step = () => ($(".snip", reel)?.offsetWidth || 300) + 16;
+    const [prev, next] = reel.querySelectorAll("[data-reel]");
+    const upd = () => {
+      const s = scroller();
+      prev.disabled = s.scrollLeft < 8;
+      next.disabled = s.scrollLeft + s.clientWidth > s.scrollWidth - 8;
+    };
+    reel.addEventListener("click", e => {
+      const b = e.target.closest("[data-reel]");
+      if (b) scroller().scrollBy({ left: +b.dataset.reel * step() * 2, behavior: reduced() ? "auto" : "smooth" });
+    });
+    [reel, list].forEach(el => el.addEventListener("scroll", upd, { passive: true }));
+    addEventListener("resize", upd); upd();
   }
 
   // --- Контакты, соцсети ---
