@@ -86,37 +86,114 @@
     new IntersectionObserver(([e]) => { onTour = e.isIntersecting; upd(); }, { rootMargin: "0px 0px -20% 0px" }).observe($("#concerts"));
   }
 
-  // --- Музыка: популярные треки ---
+  // --- Музыка: популярные треки и трейлеры ---
   const M = window.MUSIC;
+  const audio = new Audio();
+  audio.preload = "none";
   if ($("#ptracks") && M) {
-    $("#artistListen").href = $("#artistYandex").href = M.artistUrl;
-    const trackUrl = t => t.url || "https://music.yandex.ru/search?text=" + encodeURIComponent("ZaGa " + t.title);
-    $("#ptracks").innerHTML = M.tracks.map((t, i) => `
-      <li><a class="ptrack${i === 0 ? " is-current" : ""}" href="${esc(trackUrl(t))}" target="_blank" rel="noopener" aria-label="Слушать «${esc(t.title)}» на Яндекс Музыке">
-        <span class="ptrack__n">
-          <span class="ptrack__num">${i + 1}</span>
-          <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
-          <svg class="ptrack__play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
-        </span>
-        <span class="ptrack__cover"><img src="${esc(t.cover)}" alt="" loading="lazy" width="96" height="96"></span>
-        <span class="ptrack__text">
-          <span class="ptrack__title">${esc(t.title)}</span>
-          <span class="ptrack__artist">ZaGa${t.feat ? ", " + esc(t.feat) : ""}</span>
-        </span>
+    $("#artistListen").href = M.artistUrl;
+    $("#listeners").textContent = M.listeners;
+    const fullUrl = t => t.url || "https://music.yandex.ru/search?text=" + encodeURIComponent("ZaGa " + t.title);
+    const list = $("#ptracks");
+    list.innerHTML = M.tracks.map((t, i) => `
+      <li class="ptrack" data-row="${i}">
+        <button class="ptrack__main" data-track="${i}" aria-label="Трейлер: ${esc(t.title)}">
+          <span class="ptrack__n">
+            <span class="ptrack__num">${i + 1}</span>
+            <span class="eq" aria-hidden="true"><i></i><i></i><i></i></span>
+            <svg class="ptrack__play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+            <svg class="ptrack__pause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          </span>
+          <span class="ptrack__cover"><img src="${esc(t.cover)}" alt="" loading="lazy" width="96" height="96"></span>
+          <span class="ptrack__text">
+            <span class="ptrack__title">${esc(t.title)}</span>
+            <span class="ptrack__artist">ZaGa${t.feat ? ", " + esc(t.feat) : ""}</span>
+            <span class="ptrack__progress" aria-hidden="true"><i></i></span>
+          </span>
+        </button>
         <span class="ptrack__dur">${esc(t.duration)}</span>
-      </a></li>`).join("");
+        <a class="ptrack__full" href="${esc(fullUrl(t))}" target="_blank" rel="noopener" aria-label="«${esc(t.title)}» полностью на Яндекс Музыке">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+      </li>`).join("");
+
+    const player = $("#player");
+    let cur = -1, queue = false;
+    const rows = [...list.children];
+    const ui = () => {
+      const playing = !audio.paused;
+      rows.forEach((r, i) => { r.classList.toggle("is-current", i === cur); r.classList.toggle("is-playing", i === cur && playing); });
+      player.classList.toggle("is-paused", !playing);
+      $("#playerToggle").setAttribute("aria-label", playing ? "Пауза" : "Играть");
+      $("#trailerAll").classList.toggle("is-on", queue && playing);
+      $("#trailerAll span").textContent = queue && playing ? "Пауза" : "Трейлер";
+    };
+    const play = (i, fromQueue = false) => {
+      queue = fromQueue;
+      if (i === cur) { audio.paused ? audio.play() : audio.pause(); return; }
+      const t = M.tracks[i];
+      cur = i;
+      audio.src = t.trailer;
+      audio.play().catch(() => {});
+      $("#playerCover").src = t.cover;
+      $("#playerTitle").textContent = t.title;
+      $("#playerArtist").textContent = "ZaGa" + (t.feat ? ", " + t.feat : "");
+      $("#playerFull").href = fullUrl(t);
+      player.hidden = false;
+      requestAnimationFrame(() => player.classList.add("is-open"));
+      document.body.classList.add("has-player");
+    };
+    list.addEventListener("click", e => { const b = e.target.closest("[data-track]"); if (b) play(+b.dataset.track, queue); });
+    $("#trailerAll").addEventListener("click", () => {
+      if (queue && cur > -1) { audio.paused ? audio.play() : audio.pause(); return; }
+      play(cur > -1 && !queue ? cur : 0, true);
+    });
+    $("#playerToggle").addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
+    $("#playerClose").addEventListener("click", () => {
+      audio.pause(); cur = -1; queue = false;
+      player.classList.remove("is-open"); document.body.classList.remove("has-player");
+      setTimeout(() => { player.hidden = true; }, 250); ui();
+    });
+    ["play", "pause"].forEach(ev => audio.addEventListener(ev, ui));
+    audio.addEventListener("timeupdate", () => {
+      const p = audio.duration ? audio.currentTime / audio.duration : 0;
+      $("#playerProgress").style.transform = `scaleX(${p})`;
+      const bar = rows[cur]?.querySelector(".ptrack__progress i");
+      if (bar) bar.style.transform = `scaleX(${p})`;
+    });
+    audio.addEventListener("ended", () => {
+      if (queue && cur < M.tracks.length - 1) play(cur + 1, true);
+      else { queue = false; ui(); }
+    });
   }
 
-  // --- Магазин ---
+  // --- Магазин: коллаж с параллаксом ---
   if ($("#merch")) {
     $("#shopLink").href = window.SHOP_URL;
-    $("#merch").innerHTML = (window.MERCH || []).map(m => `
-      <li class="reveal"><a class="item" href="${esc(window.SHOP_URL)}" target="_blank" rel="noopener">
-        <span class="item__img"><img src="${esc(m.img)}" alt="${esc(m.name)}, ${esc(m.color.toLowerCase())}" loading="lazy"></span>
-        <span class="item__name">${esc(m.name)}</span>
-        <span class="item__meta"><span>${esc(m.color)}</span><b>${esc(m.price)}</b></span>
-        <span class="item__cta">Заказать в Instagram</span>
-      </a></li>`).join("");
+    $("#merch").innerHTML = (window.MERCH || []).map((m, i) => `
+      <li class="tee" style="--i:${i}">
+        <figure class="tee__card" data-depth="${[0.18, -0.12, 0.08, -0.2, 0.15, -0.06][i % 6]}">
+          <span class="tee__tape" aria-hidden="true"></span>
+          <img src="${esc(m.img)}" alt="${esc(m.name)}, ${esc(m.color.toLowerCase())}" loading="lazy">
+          <figcaption class="tee__tag"><b>${esc(m.price)}</b><span>${esc(m.name)}</span></figcaption>
+        </figure>
+      </li>`).join("");
+
+    if (!reduced()) {
+      const shop = $("#shop");
+      const cards = [...shop.querySelectorAll("[data-depth]")];
+      const drift = [...shop.querySelectorAll("[data-drift]")];
+      let on = false, raf = 0;
+      const frame = () => {
+        raf = 0;
+        const r = shop.getBoundingClientRect();
+        const p = (innerHeight - r.top) / (innerHeight + r.height) - .5; // −0.5…0.5, пока секция на экране
+        cards.forEach(c => c.style.setProperty("--py", (p * c.dataset.depth * 600).toFixed(1) + "px"));
+        drift.forEach(d => d.style.transform = `translateX(${(p * d.dataset.drift * 30).toFixed(2)}%)`);
+      };
+      new IntersectionObserver(([e]) => { on = e.isIntersecting; if (on) frame(); }).observe(shop);
+      addEventListener("scroll", () => { if (on && !raf) raf = requestAnimationFrame(frame); }, { passive: true });
+    }
   }
 
   // --- Сниппеты: лента на главной и сетка на вкладке «Видео» ---
@@ -155,7 +232,9 @@
       $("#videoTitle").textContent = v.title;
       $("#videoTag").textContent = v.tag;
       $("[data-modal-body]", modal).innerHTML =
-        `<video src="video/${esc(v.slug)}.mp4" poster="video/${esc(v.slug)}.webp" controls autoplay playsinline></video>`;
+        `<video src="video/${esc(v.slug)}.mp4" poster="video/${esc(v.slug)}.webp" controls autoplay playsinline></video>` +
+        (v.ig ? `<a class="modal__ig" href="${esc(v.ig)}" target="_blank" rel="noopener">Смотреть в Instagram ↗</a>` : "");
+      audio.pause();
       open();
     });
   }
