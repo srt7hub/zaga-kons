@@ -25,11 +25,11 @@ window.MUSIC = {
   ]
 };
 
-window.SHOP_URL = "https://instagram.com/";
+window.SHOP_URL = "https://www.instagram.com/turkum.official.02/"; // бренд одежды Turkum
 
 window.MERCH = [
   { name: "Футболка «Башҡортостан»",    color: "Чёрная", price: "2 900 ₽", img: "img/merch-1.webp" },
-  { name: "Футболка «Төрким»",          color: "Белая",  price: "2 500 ₽", img: "img/merch-2.webp" },
+  { name: "Футболка Turkum",            color: "Белая",  price: "2 500 ₽", img: "img/merch-2.webp" },
   { name: "Футболка «Башҡортостан»",    color: "Белая",  price: "2 900 ₽", img: "img/merch-3.webp" },
   { name: "Лонгслив «Made in Bashkortostan»", color: "Чёрный", price: "3 400 ₽", img: "img/merch-4.webp" },
   { name: "Свитшот «Татар кызы»",       color: "Чёрный", price: "3 900 ₽", img: "img/merch-5.webp" },
@@ -37,17 +37,21 @@ window.MERCH = [
 ];
 
 window.CONTACTS = {
-  manager: "Айдар",
+  manager: "Инсаф Агзамов",
   role: "Концертный директор",
-  phone: "+7 900 000-00-00",
-  telegram: "zaga_booking",
-  email: "booking@zaga.ru",
+  phone: "+7 909 748-56-35",
+  telegram: "agzamov_insaf",
+  email: "",
+  // пустой url — ссылка не показывается
   socials: [
-    { name: "Instagram", url: "#" },
-    { name: "ВКонтакте", url: "#" },
-    { name: "Telegram",  url: "#" },
-    { name: "YouTube",   url: "#" },
-    { name: "TikTok",    url: "#" }
+    { name: "Instagram", url: "https://www.instagram.com/zaga.officials/" },
+    { name: "ВКонтакте", url: "https://vk.ru/club175389999" },
+    { name: "YouTube",   url: "https://www.youtube.com/@pasan4ick" },
+    { name: "Telegram",  url: "" }
+  ],
+  projects: [
+    { name: "Turkum",            note: "Бренд одежды", url: "https://www.instagram.com/turkum.official.02/" },
+    { name: "Turkum Barbershop", note: "Барбершоп",    url: "https://www.instagram.com/barbershop_turkum/" }
   ]
 };
 

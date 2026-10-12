@@ -254,6 +254,7 @@
 
   // --- Контакты, соцсети ---
   const C = window.CONTACTS;
+  const socials = C.socials.filter(s => s.url);
   if ($("#contactCard")) {
     $("#contactCard").innerHTML = `
       <p class="contact-card__name">${esc(C.manager)}</p>
@@ -261,16 +262,23 @@
       <div class="contact-card__links">
         <a class="btn btn--light" href="tel:${C.phone.replace(/[^\d+]/g, "")}">${esc(C.phone)}</a>
         <a class="btn btn--ghost" href="https://t.me/${esc(C.telegram)}" target="_blank" rel="noopener">Telegram</a>
-        <a class="btn btn--ghost" href="mailto:${esc(C.email)}">${esc(C.email)}</a>
+        ${C.email ? `<a class="btn btn--ghost" href="mailto:${esc(C.email)}">${esc(C.email)}</a>` : ""}
       </div>`;
   }
   document.querySelectorAll("[data-socials-short]").forEach(el => {
-    el.innerHTML = C.socials.filter(s => /Telegram|Instagram/.test(s.name))
+    el.innerHTML = socials.filter(s => /Telegram|Instagram/.test(s.name))
       .map(s => `<a class="btn btn--ghost btn--sm" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join("");
   });
   document.querySelectorAll("[data-socials]").forEach(el => {
-    el.innerHTML = C.socials.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join("");
+    el.innerHTML = socials.map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join("");
   });
+  const projects = $("#projects");
+  if (projects && C.projects) {
+    projects.innerHTML = C.projects.map(p => `
+      <a class="project" href="${esc(p.url)}" target="_blank" rel="noopener">
+        <span class="project__name">${esc(p.name)}</span><span class="project__note">${esc(p.note)}</span>
+      </a>`).join("");
+  }
 
   // --- Шапка, меню ---
   const header = $("#header");
