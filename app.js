@@ -286,11 +286,28 @@
   // --- Пункт меню «Музыка» ведёт на Яндекс Музыку ---
   document.querySelectorAll("[data-yandex]").forEach(a => { if (window.MUSIC) a.href = window.MUSIC.artistUrl; });
 
-  // --- География тура на странице «Концерты» ---
-  const geo = $("#geo");
-  if (geo) {
-    const cities = [...new Set([...(window.CONCERTS || []).map(c => c.city), ...(window.PAST_CITIES || [])])];
-    geo.innerHTML = cities.map(c => `<span>${esc(c)}</span>`).join("");
+  // --- Обратный отсчёт до ближайшего концерта (страница «Концерты») ---
+  const cd = $("#countdown");
+  if (cd) {
+    const plural = (n, f) => f[(n % 10 === 1 && n % 100 !== 11) ? 0 : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? 1 : 2];
+    const UNITS = { d: ["день", "дня", "дней"], h: ["час", "часа", "часов"], m: ["минута", "минуты", "минут"], s: ["секунда", "секунды", "секунд"] };
+    const nextGig = () => (window.CONCERTS || [])
+      .map(c => ({ ...c, t: new Date(`${c.date}T${c.time || "00:00"}:00+05:00`) })) // время Уфы
+      .filter(c => c.t > Date.now()).sort((a, b) => a.t - b.t)[0];
+    let gig = nextGig();
+    const tick = () => {
+      if (!gig || gig.t <= Date.now()) gig = nextGig();
+      if (!gig) { cd.hidden = true; return; }
+      cd.hidden = false;
+      $("#cdLabel").textContent = `До концерта-дискотеки · ${gig.city}`;
+      let s = Math.floor((gig.t - Date.now()) / 1000);
+      const v = { d: Math.floor(s / 86400), h: Math.floor(s % 86400 / 3600), m: Math.floor(s % 3600 / 60), s: s % 60 };
+      for (const k in v) {
+        $(`[data-cd="${k}"]`, cd).textContent = String(v[k]).padStart(2, "0");
+        $(`[data-cdu="${k}"]`, cd).textContent = plural(v[k], UNITS[k]);
+      }
+    };
+    tick(); setInterval(tick, 1000);
   }
 
   // --- Шапка, меню ---

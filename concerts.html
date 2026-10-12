@@ -56,9 +56,17 @@
            sizes="(min-width: 900px) 46vw, 92vw" alt="Zaga" width="700" height="806" fetchpriority="high">
       <span class="cover__sticker" aria-hidden="true">Тур</span>
     </div>
-    <div class="cover__geo container">
-      <p class="cover__label">География тура</p>
-      <p class="cover__cities" id="geo"></p>
+    <div class="countdown container" id="countdown" hidden>
+      <p class="countdown__label" id="cdLabel"></p>
+      <div class="countdown__grid" role="timer" aria-live="off">
+        <div class="countdown__cell"><span class="countdown__num" data-cd="d">00</span><span class="countdown__unit" data-cdu="d">дней</span></div>
+        <i aria-hidden="true">:</i>
+        <div class="countdown__cell"><span class="countdown__num" data-cd="h">00</span><span class="countdown__unit" data-cdu="h">часов</span></div>
+        <i aria-hidden="true">:</i>
+        <div class="countdown__cell"><span class="countdown__num" data-cd="m">00</span><span class="countdown__unit" data-cdu="m">минут</span></div>
+        <i aria-hidden="true">:</i>
+        <div class="countdown__cell"><span class="countdown__num" data-cd="s">00</span><span class="countdown__unit" data-cdu="s">секунд</span></div>
+      </div>
     </div>
   </section>
 
