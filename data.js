@@ -42,7 +42,7 @@ window.PRODUCTS = [
   { id: "b-2", name: "Шапка Төрком",                  price: 1500, category: "accessory", img: "img/brand/b-2.webp" }
 ];
 // Какие вещи показать коллажем на главной (по id)
-window.COLLAGE = ["h-1", "t-2", "h-2", "t-4", "b-3", "h-3"];
+window.COLLAGE = ["h-1", "t-2", "h-2", "t-4", "b-1", "h-3"];
 
 window.CONTACTS = {
   manager: "Инсаф Агзамов",
