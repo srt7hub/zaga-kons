@@ -594,34 +594,55 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 }
 .page-video .footer { padding-bottom: 40px; }
 
-/* ---------- Страница «Концерты» ---------- */
-.phead { position: relative; padding: calc(var(--header-h) + 80px) 0 48px; overflow: hidden; isolation: isolate; }
-.phead__bg {
-  position: absolute; z-index: -1; top: 0; right: 0; width: 78%; height: 100%; object-fit: cover; object-position: 50% 30%;
-  -webkit-mask-image: linear-gradient(to left, #000 35%, transparent);
-  mask-image: linear-gradient(to left, #000 35%, transparent);
-  opacity: .8;
-}
-.phead::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; z-index: -1; background: linear-gradient(to top, var(--bg), transparent); }
+/* ---------- Страница «Концерты»: обложка + список ---------- */
 .page-inner .footer { padding-bottom: 40px; }
+.cover {
+  position: relative; overflow: hidden; isolation: isolate; padding-top: var(--header-h);
+  background:
+    radial-gradient(60% 45% at 50% 42%, rgba(255, 70, 40, .55), transparent 70%),
+    linear-gradient(180deg, #3d0000 0%, #9e0b06 26%, #e3120b 52%, #8a0905 76%, var(--bg) 100%);
+}
+.cover__stage { position: relative; height: min(122vw, 86svh); min-height: 440px; }
+.cover__word {
+  position: absolute; z-index: 1; left: 0; right: 0; top: 11%;
+  display: flex; justify-content: center; margin: 0;
+  font: 400 clamp(120px, 38vw, 420px)/.8 var(--f-logo); color: #fff; letter-spacing: -.02em;
+  text-shadow: .045em .045em 0 #0a0a0a;
+}
+.cover__word span { display: inline-block; animation: letterIn .8s var(--ease) both; }
+.cover__word span:nth-child(1) { animation-delay: .1s; rotate: -5deg; }
+.cover__word span:nth-child(2) { animation-delay: .18s; }
+.cover__word span:nth-child(3) { animation-delay: .26s; rotate: 3deg; }
+.cover__word span:nth-child(4) { animation-delay: .34s; }
+.cover__artist {
+  position: absolute; z-index: 2; bottom: 0; left: 50%; translate: -50% 0;
+  width: 82vw; max-width: 560px; height: auto;
+  -webkit-mask-image: linear-gradient(to top, transparent 0, #000 22%); mask-image: linear-gradient(to top, transparent 0, #000 22%);
+  animation: riseIn 1s var(--ease) .25s both;
+}
+.cover__sticker {
+  position: absolute; z-index: 3; right: 7%; top: 9%;
+  font: 700 18px/1 var(--f-display); letter-spacing: .14em; text-transform: uppercase;
+  background: var(--bg); color: #fff; padding: 9px 14px 8px; rotate: 7deg;
+  box-shadow: 4px 4px 0 rgba(0,0,0,.35);
+}
+.cover__geo { position: relative; z-index: 3; text-align: center; padding-top: 28px; padding-bottom: 8px; }
+.cover__label { font: 500 13px/1 var(--f-display); letter-spacing: .42em; text-transform: uppercase; color: rgba(255,255,255,.75); margin-bottom: 14px; }
+.cover__cities { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 0; font-size: 14px; color: var(--muted); max-width: 900px; margin: 0 auto; }
+.cover__cities span + span::before { content: "•"; color: var(--red-text); margin: 0 9px; }
 
-.steps { display: grid; gap: 12px; margin-top: 32px; counter-reset: none; }
-.step { padding: 24px; border-radius: 6px; background: rgba(255,255,255,.04); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
-.step__n { font: 700 40px/1 var(--f-display); color: var(--red-text); }
-.step__title { font: 700 24px/1.1 var(--f-display); text-transform: uppercase; }
-@media (min-width: 800px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; } .step { padding: 32px; } }
+.tour__more { display: flex; align-items: center; gap: 12px; margin-top: 24px; color: var(--muted); font-size: 15px; }
+.tour__more .soon__pulse { width: 10px; height: 10px; flex: none; }
 
-.been { padding: 72px 0; overflow: hidden; }
-.been__strip { margin-top: 32px; overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0; }
-.been__track { display: flex; align-items: center; gap: 28px; width: max-content; animation: marquee 60s linear infinite; }
-.been__track span { font: 700 clamp(28px, 7vw, 56px)/1 var(--f-display); text-transform: uppercase; white-space: nowrap; }
-.been__track span:nth-child(4n+1) { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
-.been__track i { width: 10px; height: 10px; background: var(--red); transform: rotate(45deg); flex: none; }
-@media (min-width: 900px) { .been { padding: 120px 0; } }
-
-.booking { background: var(--surface); }
-.booking__inner { display: grid; gap: 32px; }
-@media (min-width: 900px) { .booking__inner { grid-template-columns: 1.2fr 1fr; align-items: end; gap: 72px; } }
+@media (min-width: 900px) {
+  .cover__stage { height: min(82svh, 820px); min-height: 620px; }
+  .cover__word { top: 12%; font-size: clamp(220px, 26vw, 440px); }
+  .cover__artist { width: auto; height: 96%; max-width: none; }
+  .cover__sticker { right: 18%; top: 14%; font-size: 22px; }
+  .cover__geo { padding-top: 36px; }
+  .cover__cities { font-size: 15px; }
+}
+@keyframes riseIn { from { opacity: 0; translate: -50% 40px; } to { opacity: 1; translate: -50% 0; } }
 
 /* ---------- 404 ---------- */
 .notfound {

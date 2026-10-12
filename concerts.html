@@ -8,7 +8,7 @@
   <meta name="theme-color" content="#0a0a0a">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <meta property="og:title" content="Концерты — ZAGA">
-  <meta property="og:image" content="img/more-red.webp">
+  <meta property="og:image" content="img/cutout-1200.webp">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
@@ -47,70 +47,25 @@
 </div>
 
 <main>
-  <section class="phead">
-    <img class="phead__bg" src="img/more-red.webp" alt="" width="900" height="1000">
-    <div class="container">
-      <p class="eyebrow">Концерт-дискотека <span class="more__slash">/</span> Тур</p>
-      <h1 class="more__title">Концерты</h1>
-      <p class="vhead__lead">Электронный билет придёт на почту сразу после оплаты. Наличные и терминал не нужны.</p>
+  <section class="cover" aria-labelledby="cover-title">
+    <div class="cover__stage">
+      <h1 class="cover__word" id="cover-title" aria-label="Концерты ZAGA">
+        <span>Z</span><span>A</span><span>G</span><span>A</span>
+      </h1>
+      <img class="cover__artist" src="img/cutout-700.webp" srcset="img/cutout-700.webp 700w, img/cutout-1200.webp 1200w"
+           sizes="(min-width: 900px) 46vw, 92vw" alt="Zaga" width="700" height="806" fetchpriority="high">
+      <span class="cover__sticker" aria-hidden="true">Тур</span>
+    </div>
+    <div class="cover__geo container">
+      <p class="cover__label">География тура</p>
+      <p class="cover__cities" id="geo"></p>
     </div>
   </section>
 
   <section class="section section--tight" id="concerts" aria-label="Афиша">
     <div class="container">
-      <ol class="tour" id="tour"></ol>
-      <div class="soon">
-        <span class="soon__pulse" aria-hidden="true"></span>
-        <div class="soon__text">
-          <p class="soon__title">Скоро — новые города</p>
-          <p class="muted">Готовим тур. Даты объявим первыми в соцсетях</p>
-        </div>
-        <div class="soon__links" data-socials-short></div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section--alt" aria-labelledby="steps-title">
-    <div class="container">
-      <h2 class="section__title" id="steps-title">Как попасть</h2>
-      <ol class="steps">
-        <li class="step">
-          <span class="step__n">01</span>
-          <p class="step__title">Выбери дату</p>
-          <p class="muted">Нажми «Купить билет» у нужного концерта</p>
-        </li>
-        <li class="step">
-          <span class="step__n">02</span>
-          <p class="step__title">Оплати картой</p>
-          <p class="muted">Оплата онлайн через Qtickets — билет сразу придёт на почту</p>
-        </li>
-        <li class="step">
-          <span class="step__n">03</span>
-          <p class="step__title">Покажи QR-код</p>
-          <p class="muted">На входе с телефона, распечатывать не нужно</p>
-        </li>
-      </ol>
-    </div>
-  </section>
-
-  <section class="been" aria-labelledby="been-title">
-    <div class="container">
-      <p class="eyebrow">Уже зажигали</p>
-      <h2 class="section__title" id="been-title"><span id="beenCount"></span> городов</h2>
-    </div>
-    <div class="been__strip" aria-hidden="true">
-      <div class="been__track" id="been"></div>
-    </div>
-  </section>
-
-  <section class="section booking" aria-labelledby="booking-title">
-    <div class="container booking__inner">
-      <div>
-        <p class="eyebrow eyebrow--red">Организаторам</p>
-        <h2 class="section__title" id="booking-title">Zaga в вашем городе</h2>
-        <p class="contacts__lead">Концерты, корпоративы, праздники. Пишите — обсудим дату и условия</p>
-      </div>
-      <div class="contact-card" id="contactCard"></div>
+      <ol class="tour tour--clean" id="tour"></ol>
+      <p class="tour__more"><span class="soon__pulse" aria-hidden="true"></span>Новые даты скоро — следите за анонсами</p>
     </div>
   </section>
 </main>

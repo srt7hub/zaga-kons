@@ -286,12 +286,11 @@
   // --- Пункт меню «Музыка» ведёт на Яндекс Музыку ---
   document.querySelectorAll("[data-yandex]").forEach(a => { if (window.MUSIC) a.href = window.MUSIC.artistUrl; });
 
-  // --- Города, где уже выступали ---
-  const been = $("#been");
-  if (been && window.PAST_CITIES) {
-    const row = window.PAST_CITIES.map(c => `<span>${esc(c)}</span><i></i>`).join("");
-    been.innerHTML = row + row;
-    $("#beenCount").textContent = window.PAST_CITIES.length;
+  // --- География тура на странице «Концерты» ---
+  const geo = $("#geo");
+  if (geo) {
+    const cities = [...new Set([...(window.CONCERTS || []).map(c => c.city), ...(window.PAST_CITIES || [])])];
+    geo.innerHTML = cities.map(c => `<span>${esc(c)}</span>`).join("");
   }
 
   // --- Шапка, меню ---
