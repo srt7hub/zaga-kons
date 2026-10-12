@@ -50,13 +50,13 @@
 
     const next = concerts[0];
     const heroBuy = $("#heroBuy");
-    if (next) {
+    if (next && heroBuy) {
       $("#heroNext").innerHTML = `
         <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Ближайший концерт</p>
         <p class="hero__next-date">${next.d.getDate()} ${MONTHS[next.d.getMonth()]} · ${esc(next.city)}</p>
         <p class="hero__next-venue">${esc(next.venue)} · ${esc(next.time)}${next.address ? " · " + esc(next.address) : ""}</p>`;
       heroBuy.dataset.gig = "0";
-    } else {
+    } else if (heroBuy) {
       heroBuy.addEventListener("click", () => $("#concerts").scrollIntoView());
     }
 
@@ -80,10 +80,12 @@
 
     // Кнопка «Купить» снизу на телефоне: видна после первого экрана, прячется у афиши
     const sticky = $("#stickyBuy");
+    if (sticky && $(".hero")) {
     let pastHero = false, onTour = false;
     const upd = () => sticky.classList.toggle("is-on", pastHero && !onTour);
     new IntersectionObserver(([e]) => { pastHero = !e.isIntersecting; upd(); }).observe($(".hero"));
     new IntersectionObserver(([e]) => { onTour = e.isIntersecting; upd(); }, { rootMargin: "0px 0px -20% 0px" }).observe($("#concerts"));
+    }
   }
 
   // --- Музыка: популярные треки и трейлеры ---
@@ -281,6 +283,17 @@
       </a>`).join("");
   }
 
+  // --- Пункт меню «Музыка» ведёт на Яндекс Музыку ---
+  document.querySelectorAll("[data-yandex]").forEach(a => { if (window.MUSIC) a.href = window.MUSIC.artistUrl; });
+
+  // --- Города, где уже выступали ---
+  const been = $("#been");
+  if (been && window.PAST_CITIES) {
+    const row = window.PAST_CITIES.map(c => `<span>${esc(c)}</span><i></i>`).join("");
+    been.innerHTML = row + row;
+    $("#beenCount").textContent = window.PAST_CITIES.length;
+  }
+
   // --- Шапка, меню ---
   const header = $("#header");
   const onScroll = () => header.classList.toggle("is-solid", scrollY > 40);
@@ -306,6 +319,17 @@
     navLinks.forEach(a => a.classList.toggle("is-active", a.hash === "#" + e.target.id));
   }), { rootMargin: "-45% 0px -50% 0px" });
   navLinks.forEach(a => { const s = $(a.hash); if (s) spy.observe(s); });
+
+  // --- Переход с другой страницы на раздел (./#contacts): докрутить после отрисовки блоков ---
+  if (location.hash.length > 1) {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target) {
+      const go = () => target.scrollIntoView({ block: "start" });
+      requestAnimationFrame(go);
+      document.fonts?.ready.then(go);
+      addEventListener("load", go, { once: true });
+    }
+  }
 
   // --- Появление при скролле ---
   const io = new IntersectionObserver(es => es.forEach(e => {

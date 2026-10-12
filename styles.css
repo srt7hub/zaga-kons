@@ -594,6 +594,35 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 }
 .page-video .footer { padding-bottom: 40px; }
 
+/* ---------- Страница «Концерты» ---------- */
+.phead { position: relative; padding: calc(var(--header-h) + 80px) 0 48px; overflow: hidden; isolation: isolate; }
+.phead__bg {
+  position: absolute; z-index: -1; top: 0; right: 0; width: 78%; height: 100%; object-fit: cover; object-position: 50% 30%;
+  -webkit-mask-image: linear-gradient(to left, #000 35%, transparent);
+  mask-image: linear-gradient(to left, #000 35%, transparent);
+  opacity: .8;
+}
+.phead::after { content: ""; position: absolute; inset: auto 0 0; height: 40%; z-index: -1; background: linear-gradient(to top, var(--bg), transparent); }
+.page-inner .footer { padding-bottom: 40px; }
+
+.steps { display: grid; gap: 12px; margin-top: 32px; counter-reset: none; }
+.step { padding: 24px; border-radius: 6px; background: rgba(255,255,255,.04); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 8px; }
+.step__n { font: 700 40px/1 var(--f-display); color: var(--red-text); }
+.step__title { font: 700 24px/1.1 var(--f-display); text-transform: uppercase; }
+@media (min-width: 800px) { .steps { grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; } .step { padding: 32px; } }
+
+.been { padding: 72px 0; overflow: hidden; }
+.been__strip { margin-top: 32px; overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0; }
+.been__track { display: flex; align-items: center; gap: 28px; width: max-content; animation: marquee 60s linear infinite; }
+.been__track span { font: 700 clamp(28px, 7vw, 56px)/1 var(--f-display); text-transform: uppercase; white-space: nowrap; }
+.been__track span:nth-child(4n+1) { color: transparent; -webkit-text-stroke: 1.5px var(--text); }
+.been__track i { width: 10px; height: 10px; background: var(--red); transform: rotate(45deg); flex: none; }
+@media (min-width: 900px) { .been { padding: 120px 0; } }
+
+.booking { background: var(--surface); }
+.booking__inner { display: grid; gap: 32px; }
+@media (min-width: 900px) { .booking__inner { grid-template-columns: 1.2fr 1fr; align-items: end; gap: 72px; } }
+
 /* ---------- 404 ---------- */
 .notfound {
   min-height: 100svh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center;

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Концерты — ZAGA</title>
+  <meta name="description" content="Афиша концертов ZAGA и электронные билеты онлайн.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Концерты — ZAGA">
+  <meta property="og:image" content="img/more-red.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-inner">
+
+<a class="skip" href="#concerts">К афише</a>
+
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="logo" href="./" aria-label="ZAGA — на главную">ZAGA</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="concerts.html" class="is-active" aria-current="page">Концерты</a>
+      <a href="https://music.yandex.ru/search?text=ZaGa" target="_blank" rel="noopener" data-yandex>Музыка ↗</a>
+      <a href="video.html">Видео</a>
+      <a href="./#shop">Магазин</a>
+      <a href="./#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn--red btn--sm header__cta" href="#concerts">Билеты</a>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Мобильное меню">
+    <a href="concerts.html" aria-current="page">Концерты</a>
+    <a href="https://music.yandex.ru/search?text=ZaGa" target="_blank" rel="noopener" data-yandex>Музыка ↗</a>
+    <a href="video.html">Видео</a>
+    <a href="./#shop">Магазин</a>
+    <a href="./#contacts">Контакты</a>
+  </nav>
+  <div class="menu__socials" data-socials></div>
+</div>
+
+<main>
+  <section class="phead">
+    <img class="phead__bg" src="img/more-red.webp" alt="" width="900" height="1000">
+    <div class="container">
+      <p class="eyebrow">Концерт-дискотека <span class="more__slash">/</span> Тур</p>
+      <h1 class="more__title">Концерты</h1>
+      <p class="vhead__lead">Электронный билет придёт на почту сразу после оплаты. Наличные и терминал не нужны.</p>
+    </div>
+  </section>
+
+  <section class="section section--tight" id="concerts" aria-label="Афиша">
+    <div class="container">
+      <ol class="tour" id="tour"></ol>
+      <div class="soon">
+        <span class="soon__pulse" aria-hidden="true"></span>
+        <div class="soon__text">
+          <p class="soon__title">Скоро — новые города</p>
+          <p class="muted">Готовим тур. Даты объявим первыми в соцсетях</p>
+        </div>
+        <div class="soon__links" data-socials-short></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="steps-title">
+    <div class="container">
+      <h2 class="section__title" id="steps-title">Как попасть</h2>
+      <ol class="steps">
+        <li class="step">
+          <span class="step__n">01</span>
+          <p class="step__title">Выбери дату</p>
+          <p class="muted">Нажми «Купить билет» у нужного концерта</p>
+        </li>
+        <li class="step">
+          <span class="step__n">02</span>
+          <p class="step__title">Оплати картой</p>
+          <p class="muted">Оплата онлайн через Qtickets — билет сразу придёт на почту</p>
+        </li>
+        <li class="step">
+          <span class="step__n">03</span>
+          <p class="step__title">Покажи QR-код</p>
+          <p class="muted">На входе с телефона, распечатывать не нужно</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="been" aria-labelledby="been-title">
+    <div class="container">
+      <p class="eyebrow">Уже зажигали</p>
+      <h2 class="section__title" id="been-title"><span id="beenCount"></span> городов</h2>
+    </div>
+    <div class="been__strip" aria-hidden="true">
+      <div class="been__track" id="been"></div>
+    </div>
+  </section>
+
+  <section class="section booking" aria-labelledby="booking-title">
+    <div class="container booking__inner">
+      <div>
+        <p class="eyebrow eyebrow--red">Организаторам</p>
+        <h2 class="section__title" id="booking-title">Zaga в вашем городе</h2>
+        <p class="contacts__lead">Концерты, корпоративы, праздники. Пишите — обсудим дату и условия</p>
+      </div>
+      <div class="contact-card" id="contactCard"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="logo logo--sm">ZAGA</span>
+    <p>Билеты продаёт сервис Qtickets. Оферта и правила возврата — на странице оплаты.</p>
+    <p class="footer__legal">ИП Агзамов Инсаф Русланович · ИНН 020105732445 · © 2026</p>
+  </div>
+</footer>
+
+<!-- Окно покупки (виджет Qtickets) -->
+<dialog class="modal" id="ticketModal" aria-labelledby="modalTitle">
+  <div class="modal__head">
+    <div>
+      <p class="eyebrow eyebrow--red" id="modalDate"></p>
+      <h3 class="modal__title" id="modalTitle"></h3>
+    </div>
+    <button class="modal__close" data-modal-close aria-label="Закрыть">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="modal__body" data-modal-body></div>
+</dialog>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
