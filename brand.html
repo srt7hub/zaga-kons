@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Бренд одежды ТӨРКӨМ — ZAGA</title>
+  <meta name="description" content="ТӨРКӨМ — бренд одежды Zaga. Худи, футболки, лонгсливы и аксессуары.">
+  <meta name="theme-color" content="#0a0a0a">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta property="og:title" content="Бренд одежды ТӨРКӨМ">
+  <meta property="og:image" content="img/brand/cover-2.webp">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="page-inner">
+
+<a class="skip" href="#collection">К каталогу</a>
+
+<header class="header" id="header">
+  <div class="header__inner">
+    <a class="logo" href="./" aria-label="ZAGA — на главную">ZAGA</a>
+    <nav class="nav" aria-label="Основное меню">
+      <a href="concerts.html">Концерты</a>
+      <a href="https://music.yandex.ru/search?text=ZaGa" target="_blank" rel="noopener" data-yandex>Музыка ↗</a>
+      <a href="video.html">Видео</a>
+      <a href="brand.html" class="is-active" aria-current="page">Бренд одежды</a>
+      <a href="./#contacts">Контакты</a>
+    </nav>
+    <a class="btn btn--red btn--sm header__cta" href="concerts.html">Билеты</a>
+    <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<div class="menu" id="menu" hidden>
+  <nav aria-label="Мобильное меню">
+    <a href="./">Главная</a>
+    <a href="concerts.html">Концерты</a>
+    <a href="https://music.yandex.ru/search?text=ZaGa" target="_blank" rel="noopener" data-yandex>Музыка ↗</a>
+    <a href="video.html">Видео</a>
+    <a href="brand.html" aria-current="page">Бренд одежды</a>
+    <a href="./#contacts">Контакты</a>
+  </nav>
+  <div class="menu__socials" data-socials></div>
+</div>
+
+<main>
+  <section class="bcover" aria-labelledby="bcover-title">
+    <img class="bcover__bg" src="img/brand/cover.webp" alt="" width="900" height="1600" fetchpriority="high">
+    <div class="container bcover__inner">
+      <p class="eyebrow bcover__eyebrow">Бренд одежды Zaga</p>
+      <h1 class="bcover__logo" id="bcover-title"><img src="img/brand/torkom-logo.webp" alt="ТӨРКӨМ" width="1200" height="256"></h1>
+      <p class="bcover__lead">Уличная одежда с характером Башкортостана</p>
+      <div class="bcover__actions">
+        <a class="btn btn--red btn--lg" href="#collection">Каталог</a>
+        <a class="btn btn--ghost btn--lg" data-shop href="#" target="_blank" rel="noopener">Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="collection" aria-labelledby="collection-title">
+    <div class="container">
+      <div class="section__head">
+        <h2 class="section__title" id="collection-title">Коллекция</h2>
+        <div class="filters" role="group" aria-label="Фильтр каталога">
+          <button class="filter" data-filter="all" aria-pressed="true">Все</button>
+          <button class="filter" data-filter="hoodie" aria-pressed="false">Худи</button>
+          <button class="filter" data-filter="tshirt" aria-pressed="false">Футболки</button>
+          <button class="filter" data-filter="accessory" aria-pressed="false">Аксессуары</button>
+        </div>
+      </div>
+      <ul class="catalog" id="catalog"></ul>
+      <div class="catalog__order">
+        <p>Размеры, наличие и доставка — в директ бренда</p>
+        <a class="btn btn--red btn--lg" data-shop href="#" target="_blank" rel="noopener">Заказать в Instagram ↗</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span class="logo logo--sm">ZAGA</span>
+    <p>Билеты продаёт сервис Qtickets. Оферта и правила возврата — на странице оплаты.</p>
+    <p class="footer__legal">ИП Агзамов Инсаф Русланович · ИНН 020105732445 · © 2026</p>
+  </div>
+</footer>
+
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

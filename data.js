@@ -24,16 +24,25 @@ window.MUSIC = {
   ]
 };
 
-window.SHOP_URL = "https://www.instagram.com/turkum.official.02/"; // бренд одежды Turkum
-
-window.MERCH = [
-  { name: "Футболка «Башҡортостан»",    color: "Чёрная", price: "2 900 ₽", img: "img/merch-1.webp" },
-  { name: "Футболка Turkum",            color: "Белая",  price: "2 500 ₽", img: "img/merch-2.webp" },
-  { name: "Футболка «Башҡортостан»",    color: "Белая",  price: "2 900 ₽", img: "img/merch-3.webp" },
-  { name: "Лонгслив «Made in Bashkortostan»", color: "Чёрный", price: "3 400 ₽", img: "img/merch-4.webp" },
-  { name: "Свитшот «Татар кызы»",       color: "Чёрный", price: "3 900 ₽", img: "img/merch-5.webp" },
-  { name: "Худи «Made in Bashkortostan»", color: "Чёрное", price: "5 200 ₽", img: "img/merch-6.webp" }
+// Бренд одежды ТӨРКӨМ — каталог перенесён из проекта zaga-main (src/data/products.ts).
+// Заказ — через Instagram бренда. category: hoodie | tshirt | accessory
+window.SHOP_URL = "https://www.instagram.com/turkum.official.02/";
+window.PRODUCTS = [
+  { id: "h-1", name: "Худи Bashkortostan (бел.)",     price: 4800, category: "hoodie",    img: "img/brand/h-1.webp" },
+  { id: "h-4", name: "Худи Tatarstan (черн.)",        price: 4800, category: "hoodie",    img: "img/brand/h-4.webp" },
+  { id: "h-2", name: "Худи Bashkortostan (черн.)",    price: 4800, category: "hoodie",    img: "img/brand/h-2.webp" },
+  { id: "h-3", name: "Худи Bashkortostan (зел.)",     price: 4800, category: "hoodie",    img: "img/brand/h-3.webp" },
+  { id: "t-1", name: "Футболка Башкортостан (черн.)", price: 2500, category: "tshirt",    img: "img/brand/t-1.webp" },
+  { id: "t-4", name: "Лонгслив Татар кызы (бел.)",    price: 2500, category: "tshirt",    img: "img/brand/t-4.webp" },
+  { id: "t-2", name: "Футболка Башкортостан (бел.)",  price: 2500, category: "tshirt",    img: "img/brand/t-2.webp" },
+  { id: "t-3", name: "Лонгслив Башкорт кызы (черн.)", price: 2500, category: "tshirt",    img: "img/brand/t-3.webp" },
+  { id: "t-5", name: "Футболка Bashkortostan (черн.)",price: 2500, category: "tshirt",    img: "img/brand/t-5.webp" },
+  { id: "b-1", name: "Панама Төрком",                 price: 1500, category: "accessory", img: "img/brand/b-1.webp" },
+  { id: "b-3", name: "Кепка Төрком",                  price: 1300, category: "accessory", img: "img/brand/b-3.webp" },
+  { id: "b-2", name: "Шапка Төрком",                  price: 1500, category: "accessory", img: "img/brand/b-2.webp" }
 ];
+// Какие вещи показать коллажем на главной (по id)
+window.COLLAGE = ["h-1", "t-2", "h-2", "t-4", "b-3", "h-3"];
 
 window.CONTACTS = {
   manager: "Инсаф Агзамов",
@@ -49,7 +58,7 @@ window.CONTACTS = {
     { name: "Telegram",  url: "" }
   ],
   projects: [
-    { name: "Turkum",            note: "Бренд одежды", url: "https://www.instagram.com/turkum.official.02/" },
+    { name: "Төрком",            note: "Бренд одежды", url: "https://www.instagram.com/turkum.official.02/" },
     { name: "Turkum Barbershop", note: "Барбершоп",    url: "https://www.instagram.com/barbershop_turkum/" }
   ]
 };

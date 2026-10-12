@@ -186,15 +186,39 @@
     });
   }
 
-  // --- Магазин: коллаж с параллаксом ---
+  // --- Бренд одежды ---
+  const P = window.PRODUCTS || [];
+  const rub = n => n.toLocaleString("ru-RU") + " ₽";
+  document.querySelectorAll("[data-shop]").forEach(a => a.href = window.SHOP_URL);
+
+  // Каталог на странице «Бренд одежды»
+  const catalog = $("#catalog");
+  if (catalog) {
+    catalog.innerHTML = P.map(p => `
+      <li class="prod" data-cat="${esc(p.category)}">
+        <a href="${esc(window.SHOP_URL)}" target="_blank" rel="noopener" aria-label="${esc(p.name)}, ${rub(p.price)} — заказать в Instagram">
+          <span class="prod__img"><img src="${esc(p.img)}" alt="${esc(p.name)}" loading="lazy" width="720" height="960"><span class="prod__cta">Заказать</span></span>
+          <span class="prod__name">${esc(p.name)}</span>
+          <span class="prod__price">${rub(p.price)}</span>
+        </a>
+      </li>`).join("");
+    const btns = document.querySelectorAll("[data-filter]");
+    btns.forEach(b => b.addEventListener("click", () => {
+      const f = b.dataset.filter;
+      btns.forEach(x => x.setAttribute("aria-pressed", x === b));
+      catalog.querySelectorAll(".prod").forEach(li => { li.hidden = f !== "all" && li.dataset.cat !== f; });
+    }));
+  }
+
+  // Коллаж на главной
   if ($("#merch")) {
-    $("#shopLink").href = window.SHOP_URL;
-    $("#merch").innerHTML = (window.MERCH || []).map((m, i) => `
+    const pick = (window.COLLAGE || []).map(id => P.find(p => p.id === id)).filter(Boolean);
+    $("#merch").innerHTML = pick.map((m, i) => `
       <li class="tee" style="--i:${i}">
         <figure class="tee__card" data-depth="${[0.18, -0.12, 0.08, -0.2, 0.15, -0.06][i % 6]}">
           <span class="tee__tape" aria-hidden="true"></span>
-          <img src="${esc(m.img)}" alt="${esc(m.name)}, ${esc(m.color.toLowerCase())}" loading="lazy">
-          <figcaption class="tee__tag"><b>${esc(m.price)}</b><span>${esc(m.name)}</span></figcaption>
+          <img src="${esc(m.img)}" alt="${esc(m.name)}" loading="lazy">
+          <figcaption class="tee__tag"><b>${rub(m.price)}</b><span>${esc(m.name)}</span></figcaption>
         </figure>
       </li>`).join("");
 

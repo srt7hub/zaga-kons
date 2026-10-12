@@ -684,6 +684,63 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 }
 @keyframes riseIn { from { opacity: 0; translate: -50% 40px; } to { opacity: 1; translate: -50% 0; } }
 
+/* ---------- Страница «Бренд одежды» ---------- */
+.bcover {
+  position: relative; min-height: 88svh; display: flex; align-items: flex-end; overflow: hidden; overflow: clip; isolation: isolate;
+  padding: calc(var(--header-h) + 40px) 0 56px;
+}
+.bcover__bg { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.bcover::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(to top, var(--bg) 2%, rgba(10,10,10,.55) 45%, rgba(10,10,10,.25) 70%, rgba(10,10,10,.6) 100%);
+}
+.bcover__inner { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px; }
+.bcover__eyebrow { color: rgba(255,255,255,.8); }
+.bcover__logo { width: min(86vw, 760px); margin: 0; }
+.bcover__logo img { width: 100%; height: auto; filter: drop-shadow(0 10px 30px rgba(0,0,0,.5)); }
+.bcover__lead { font-size: 17px; color: rgba(255,255,255,.85); }
+.bcover__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 8px; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter {
+  min-height: 40px; padding: 0 16px; border-radius: 999px; border: 1px solid var(--line);
+  font: 600 13px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  transition: color .2s, background-color .2s, border-color .2s, transform .16s ease-out;
+}
+.filter:active { transform: scale(.95); }
+.filter[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+.catalog { display: grid; grid-template-columns: 1fr 1fr; gap: 28px 12px; }
+.prod a { display: flex; flex-direction: column; gap: 6px; }
+.prod__img { position: relative; aspect-ratio: 3 / 4; overflow: hidden; overflow: clip; background: var(--surface-2); border: 1px solid rgba(255,255,255,.05); margin-bottom: 8px; }
+.prod__img img { width: 100%; height: 100%; object-fit: cover; transition: transform .7s var(--ease); }
+.prod__cta {
+  position: absolute; left: 10px; right: 10px; bottom: 10px; padding: 11px 0; text-align: center;
+  font: 700 12px/1 var(--f-display); letter-spacing: .2em; text-transform: uppercase;
+  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.25); backdrop-filter: blur(10px);
+  transform: translateY(140%); transition: transform .3s var(--ease), background-color .2s, color .2s;
+}
+.prod__name { font: 700 14px/1.25 var(--f-body); text-transform: uppercase; }
+.prod__price { font: 700 14px/1 var(--f-display); color: var(--red-text); letter-spacing: .04em; }
+.prod a:active .prod__img { scale: .98; }
+.catalog__order {
+  display: flex; flex-direction: column; align-items: center; text-align: center; gap: 14px;
+  margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--line); color: var(--muted);
+}
+@media (min-width: 700px) { .catalog { grid-template-columns: repeat(3, 1fr); gap: 48px 20px; } .prod__name { font-size: 15px; } }
+@media (min-width: 1100px) { .catalog { grid-template-columns: repeat(4, 1fr); } }
+@media (hover: hover) and (pointer: fine) {
+  .prod a:hover .prod__img img { transform: scale(1.05); }
+  .prod a:hover .prod__cta { transform: none; }
+  .prod__cta:hover { background: #fff; color: var(--bg); }
+  .filter:not([aria-pressed="true"]):hover { color: var(--text); border-color: rgba(255,255,255,.4); }
+}
+
+/* Логотип бренда в блоке на главной */
+.shop__lead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.shop__logo { height: 26px; width: auto; }
+.shop__cta .btn--ghost { border-color: rgba(255,255,255,.35); }
+
 /* ---------- 404 ---------- */
 .notfound {
   min-height: 100svh; display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
