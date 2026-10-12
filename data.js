@@ -20,8 +20,7 @@ window.MUSIC = {
     { title: "Ауылда диско",     feat: "",                   duration: "3:05", cover: "video/auyl.webp",              trailer: "audio/auyl.m4a" },
     { title: "Юрта",             feat: "",                   duration: "2:47", cover: "video/yurta.webp",             trailer: "audio/yurta.m4a" },
     { title: "Яна йөрәк",        feat: "",                   duration: "3:12", cover: "video/yana-yorek.webp",        trailer: "audio/yana-yorek.m4a" },
-    { title: "Новогодний трек",  feat: "",                   duration: "2:50", cover: "video/new-year.webp",          trailer: "audio/new-year.m4a" },
-    { title: "Новый трек",       feat: "",                   duration: "2:44", cover: "video/trek-v-seti.webp",       trailer: "audio/trek-v-seti.m4a" }
+    { title: "Ауылда суета",     feat: "",                   duration: "2:50", cover: "video/new-year.webp",          trailer: "audio/new-year.m4a" }
   ]
 };
 
@@ -58,12 +57,11 @@ window.CONTACTS = {
 // featured: true — ролик-«премьера» вверху вкладки «Видео».
 // Сниппеты (ig — оригинал рилса): video/<slug>.mp4 — полное видео, <slug>-preview.mp4 — беззвучное превью для карточки, <slug>.webp — обложка.
 window.VIDEOS = [
-  { slug: "auyl",              title: "Ауылда диско",      tag: "Скоро релиз", duration: "0:33", featured: true, ig: "https://www.instagram.com/reel/DEC_2yUMi9a/" },
-  { slug: "eto-bashkortostan", title: "Это Башкортостан",  tag: "Сниппет",     duration: "0:51" , ig: "https://www.instagram.com/reel/Dci_Nw-ixNW/" },
-  { slug: "yaz-kile",          title: "Яз килә 2.0",       tag: "В сети · с Рустамом Гиззатуллиным", duration: "0:29" , ig: "https://www.instagram.com/reel/DPPDE7IguPQ/" },
-  { slug: "yana-yorek",        title: "Яна йөрәк",         tag: "Скоро релиз", duration: "0:36" , ig: "https://www.instagram.com/reel/DX9Ch6fi4do/" },
-  { slug: "banda-02",          title: "Банда 02",          tag: "В сети",      duration: "0:31" , ig: "https://www.instagram.com/reel/DL9ay1Hsoyt/" },
-  { slug: "yurta",             title: "Юрта",              tag: "Скоро релиз", duration: "0:32" , ig: "https://www.instagram.com/reel/C_NaV3iswiW/" },
-  { slug: "new-year",          title: "Новогодний трек",   tag: "Сниппет",     duration: "0:37" , ig: "https://www.instagram.com/reel/DSZa5bTgnjo/" },
-  { slug: "trek-v-seti",       title: "Новый трек",        tag: "В сети",      duration: "0:32" , ig: "https://www.instagram.com/reel/DHsgi-_CZqq/" }
+  { slug: "auyl",              title: "Ауылда диско",      duration: "0:33", featured: true, ig: "https://www.instagram.com/reel/DEC_2yUMi9a/" },
+  { slug: "eto-bashkortostan", title: "Это Башкортостан",  duration: "0:51" , ig: "https://www.instagram.com/reel/Dci_Nw-ixNW/" },
+  { slug: "yaz-kile",          title: "Яз килә 2.0",       duration: "0:29" , ig: "https://www.instagram.com/reel/DPPDE7IguPQ/" },
+  { slug: "yana-yorek",        title: "Яна йөрәк",         duration: "0:36" , ig: "https://www.instagram.com/reel/DX9Ch6fi4do/" },
+  { slug: "banda-02",          title: "Банда 02",          duration: "0:31" , ig: "https://www.instagram.com/reel/DL9ay1Hsoyt/" },
+  { slug: "yurta",             title: "Юрта",              duration: "0:32" , ig: "https://www.instagram.com/reel/C_NaV3iswiW/" },
+  { slug: "new-year",          title: "Ауылда суета",      duration: "0:37" , ig: "https://www.instagram.com/reel/DSZa5bTgnjo/" }
 ];

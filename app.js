@@ -214,7 +214,7 @@
           ${quiet ? "" : `<video muted loop playsinline preload="none" data-src="video/${esc(v.slug)}-preview.mp4" aria-hidden="true"></video>`}
           <span class="snip__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
           <span class="snip__dur">${esc(v.duration)}</span>
-          <span class="snip__info"><span class="snip__tag">${esc(v.tag)}</span><span class="snip__title">${esc(v.title)}</span></span>
+          <span class="snip__info"><span class="snip__title">${esc(v.title)}</span></span>
         </button></li>`).join("");
     });
 
@@ -246,7 +246,6 @@
     const openVideo = i => {
       const v = V[i];
       $("#videoTitle").textContent = v.title;
-      $("#videoTag").textContent = v.tag;
       $("[data-modal-body]", modal).innerHTML =
         `<video src="video/${esc(v.slug)}.mp4" poster="video/${esc(v.slug)}.webp" controls autoplay playsinline></video>` +
         (v.ig ? `<a class="modal__ig" href="${esc(v.ig)}" target="_blank" rel="noopener">Смотреть в Instagram ↗</a>` : "");
@@ -265,7 +264,6 @@
       const v = V[fi];
       $("#featPoster").src = `video/${v.slug}.webp`;
       $("#feat-title").textContent = v.title;
-      $("#featTag").textContent = `${v.tag} · ${v.duration}`;
       const ig = $("#featIg");
       v.ig ? (ig.href = v.ig) : ig.remove();
       const fv = $("#featVideo");
