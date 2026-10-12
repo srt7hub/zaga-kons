@@ -12,15 +12,15 @@ window.MUSIC = {
   artistUrl: "https://music.yandex.ru/search?text=ZaGa",
   listeners: "66 725",
   avatar: "img/artist.webp",
-  // trailer — нарезка самой популярной части (audio/<slug>.m4a). Пока вырезана из рилсов, заменить на свои нарезки.
+  // trailer — нарезка самой популярной части; её длительность сайт берёт из файла сам (audio/<slug>.m4a). Пока вырезана из рилсов, заменить на свои нарезки.
   tracks: [
-    { title: "Это Башкортостан", feat: "",                   duration: "2:41", cover: "video/eto-bashkortostan.webp", trailer: "audio/eto-bashkortostan.m4a" },
-    { title: "Яз килә 2.0",      feat: "Рустам Гиззатуллин", duration: "2:58", cover: "video/yaz-kile.webp",          trailer: "audio/yaz-kile.m4a" },
-    { title: "Банда 02",         feat: "",                   duration: "2:33", cover: "video/banda-02.webp",          trailer: "audio/banda-02.m4a" },
-    { title: "Ауылда диско",     feat: "",                   duration: "3:05", cover: "video/auyl.webp",              trailer: "audio/auyl.m4a" },
-    { title: "Юрта",             feat: "",                   duration: "2:47", cover: "video/yurta.webp",             trailer: "audio/yurta.m4a" },
-    { title: "Яна йөрәк",        feat: "",                   duration: "3:12", cover: "video/yana-yorek.webp",        trailer: "audio/yana-yorek.m4a" },
-    { title: "Ауылда суета",     feat: "",                   duration: "2:50", cover: "video/new-year.webp",          trailer: "audio/new-year.m4a" }
+    { title: "Это Башкортостан", feat: "",                   cover: "video/eto-bashkortostan.webp", trailer: "audio/eto-bashkortostan.m4a" },
+    { title: "Яз килә 2.0",      feat: "Рустам Гиззатуллин", cover: "video/yaz-kile.webp",          trailer: "audio/yaz-kile.m4a" },
+    { title: "Банда 02",         feat: "",                   cover: "video/banda-02.webp",          trailer: "audio/banda-02.m4a" },
+    { title: "Ауылда диско",     feat: "",                   cover: "video/auyl.webp",              trailer: "audio/auyl.m4a" },
+    { title: "Юрта",             feat: "",                   cover: "video/yurta.webp",             trailer: "audio/yurta.m4a" },
+    { title: "Яна йөрәк",        feat: "",                   cover: "video/yana-yorek.webp",        trailer: "audio/yana-yorek.m4a" },
+    { title: "Ауылда суета",     feat: "",                   cover: "video/new-year.webp",          trailer: "audio/new-year.m4a" }
   ]
 };
 

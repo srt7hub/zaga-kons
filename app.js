@@ -113,7 +113,7 @@
             <span class="ptrack__progress" aria-hidden="true"><i></i></span>
           </span>
         </button>
-        <span class="ptrack__dur">${esc(t.duration)}</span>
+        <span class="ptrack__dur" data-dur>0:30</span>
         <a class="ptrack__full" href="${esc(fullUrl(t))}" target="_blank" rel="noopener" aria-label="«${esc(t.title)}» полностью на Яндекс Музыке">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
         </a>
@@ -122,6 +122,19 @@
     const player = $("#player");
     let cur = -1, queue = false;
     const rows = [...list.children];
+    // Длительность берём из самих файлов нарезок, когда блок приближается к экрану
+    const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
+    const lens = [];
+    const durEl = i => rows[i].querySelector("[data-dur]");
+    new IntersectionObserver(([e], io) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      M.tracks.forEach((t, i) => {
+        const a = new Audio(); a.preload = "metadata";
+        a.addEventListener("loadedmetadata", () => { lens[i] = a.duration; if (i !== cur) durEl(i).textContent = fmt(a.duration); }, { once: true });
+        a.src = t.trailer;
+      });
+    }, { rootMargin: "400px" }).observe(list);
     const ui = () => {
       const playing = !audio.paused;
       rows.forEach((r, i) => { r.classList.toggle("is-current", i === cur); r.classList.toggle("is-playing", i === cur && playing); });
@@ -130,9 +143,11 @@
       $("#trailerAll").classList.toggle("is-on", queue && playing);
       $("#trailerAll span").textContent = queue && playing ? "Пауза" : "Трейлер";
     };
+    const resetDur = i => { if (i > -1 && lens[i]) durEl(i).textContent = fmt(lens[i]); };
     const play = (i, fromQueue = false) => {
       queue = fromQueue;
       if (i === cur) { audio.paused ? audio.play() : audio.pause(); return; }
+      resetDur(cur);
       const t = M.tracks[i];
       cur = i;
       audio.src = t.trailer;
@@ -153,20 +168,21 @@
     });
     $("#playerToggle").addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
     $("#playerClose").addEventListener("click", () => {
-      audio.pause(); cur = -1; queue = false;
+      audio.pause(); resetDur(cur); cur = -1; queue = false;
       player.classList.remove("is-open"); document.body.classList.remove("has-player");
       setTimeout(() => { player.hidden = true; }, 250); ui();
     });
     ["play", "pause"].forEach(ev => audio.addEventListener(ev, ui));
     audio.addEventListener("timeupdate", () => {
       const p = audio.duration ? audio.currentTime / audio.duration : 0;
+      if (cur > -1 && audio.duration) durEl(cur).textContent = "−" + fmt(Math.max(0, audio.duration - audio.currentTime));
       $("#playerProgress").style.transform = `scaleX(${p})`;
       const bar = rows[cur]?.querySelector(".ptrack__progress i");
       if (bar) bar.style.transform = `scaleX(${p})`;
     });
     audio.addEventListener("ended", () => {
       if (queue && cur < M.tracks.length - 1) play(cur + 1, true);
-      else { queue = false; ui(); }
+      else { queue = false; resetDur(cur); ui(); }
     });
   }
 
