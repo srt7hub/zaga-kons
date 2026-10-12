@@ -203,7 +203,7 @@
   const V = window.VIDEOS || [];
   const lists = document.querySelectorAll("[data-snips]");
   const strip = $("#strip");
-  if (lists.length || strip) {
+  if (lists.length || strip || $("#fan")) {
     const quiet = reduced() || navigator.connection?.saveData;
     lists.forEach(list => {
       list.innerHTML = V.map((v, i) => `
@@ -241,10 +241,8 @@
     // Плеер со звуком
     const modal = $("#videoModal");
     const open = setupModal(modal);
-    document.addEventListener("click", e => {
-      const b = e.target.closest("[data-video]");
-      if (!b) return;
-      const v = V[+b.dataset.video];
+    const openVideo = i => {
+      const v = V[i];
       $("#videoTitle").textContent = v.title;
       $("#videoTag").textContent = v.tag;
       $("[data-modal-body]", modal).innerHTML =
@@ -252,7 +250,71 @@
         (v.ig ? `<a class="modal__ig" href="${esc(v.ig)}" target="_blank" rel="noopener">Смотреть в Instagram ↗</a>` : "");
       audio.pause();
       open();
+    };
+    document.addEventListener("click", e => {
+      const b = e.target.closest("[data-video]");
+      if (b) openVideo(+b.dataset.video);
     });
+
+    // Веер на вкладке «Видео»: центральная карточка играет, остальные разложены по дуге
+    const fan = $("#fan");
+    if (fan) {
+      const N = V.length;
+      fan.innerHTML = V.map((v, i) => `
+        <button class="fcard" data-fcard="${i}" tabindex="-1" aria-label="${esc(v.title)}">
+          <img src="video/${esc(v.slug)}.webp" alt="" width="540" height="960">
+          ${quiet ? "" : `<video muted loop playsinline preload="none" data-src="video/${esc(v.slug)}-preview.mp4" aria-hidden="true"></video>`}
+          <span class="fcard__play" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg></span>
+        </button>`).join("");
+      const cards = [...fan.children];
+      let cur = 0, timer = 0;
+      const set = n => {
+        cur = (n + N) % N;
+        cards.forEach((c, k) => {
+          let o = k - cur;
+          if (o > N / 2) o -= N;
+          if (o < -N / 2) o += N;
+          const a = Math.abs(o);
+          c.style.setProperty("--o", o);
+          c.style.setProperty("--a", a);
+          c.style.zIndex = 20 - a;
+          c.classList.toggle("is-active", o === 0);
+          c.classList.toggle("is-far", a > 3);
+          c.tabIndex = o === 0 ? 0 : -1;
+          c.setAttribute("aria-label", o === 0 ? `Смотреть: ${V[k].title}` : V[k].title);
+          const vid = $("video", c);
+          if (vid) {
+            if (o === 0) { if (!vid.src) vid.src = vid.dataset.src; vid.play().then(() => vid.classList.add("is-playing")).catch(() => {}); }
+            else vid.pause();
+          }
+        });
+        $("#fanTitle").textContent = V[cur].title;
+        $("#fanTag").textContent = V[cur].tag;
+        $("#fanCount").textContent = `${String(cur + 1).padStart(2, "0")} / ${String(N).padStart(2, "0")}`;
+      };
+      const auto = () => { clearInterval(timer); if (!reduced()) timer = setInterval(() => set(cur + 1), 5000); };
+      const stop = () => clearInterval(timer);
+      fan.addEventListener("click", e => {
+        const c = e.target.closest("[data-fcard]");
+        if (!c) return;
+        stop();
+        const k = +c.dataset.fcard;
+        k === cur ? openVideo(k) : set(k);
+      });
+      document.querySelectorAll("[data-fan]").forEach(b => b.addEventListener("click", () => { stop(); set(cur + +b.dataset.fan); }));
+      // свайп
+      let x0 = null;
+      fan.addEventListener("pointerdown", e => { x0 = e.clientX; });
+      fan.addEventListener("pointerup", e => {
+        if (x0 === null) return;
+        const dx = e.clientX - x0; x0 = null;
+        if (Math.abs(dx) > 40) { stop(); set(cur + (dx < 0 ? 1 : -1)); fan.dataset.swiped = "1"; }
+      });
+      fan.addEventListener("click", e => { if (fan.dataset.swiped) { e.stopImmediatePropagation(); delete fan.dataset.swiped; } }, true);
+      // пауза автопрокрутки, когда веер за экраном
+      new IntersectionObserver(([e]) => e.isIntersecting ? auto() : stop()).observe(fan);
+      set(0);
+    }
   }
 
   // --- Контакты, соцсети ---

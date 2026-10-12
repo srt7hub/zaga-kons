@@ -18,7 +18,7 @@
 
 <a class="skip" href="#snips">К видео</a>
 
-<header class="header is-solid" id="header">
+<header class="header" id="header">
   <div class="header__inner">
     <a class="logo" href="./" aria-label="ZAGA — на главную">ZAGA</a>
     <nav class="nav" aria-label="Основное меню">
@@ -48,17 +48,28 @@
 </div>
 
 <main>
-  <section class="vhead">
-    <img class="vhead__bg" src="img/more-bw.webp" alt="" width="1400" height="1000">
-    <div class="container">
-      <p class="eyebrow">ZAGA <span class="more__slash">/</span> Tour</p>
-      <h1 class="more__title">Больше<br>чем музыка</h1>
-      <p class="vhead__lead">Сниппеты новых треков, моменты с концертов и то, что остаётся за кадром.</p>
+  <section class="vfan" aria-labelledby="vfan-title">
+    <h1 class="vfan__word" id="vfan-title">Больше<br>чем<br>музыка</h1>
+    <p class="eyebrow vfan__eyebrow container">ZAGA <span class="more__slash">/</span> Сниппеты</p>
+    <div class="fan" id="fan" aria-label="Сниппеты, листайте влево и вправо"></div>
+    <div class="vfan__bar container">
+      <button class="fan__btn" data-fan="-1" aria-label="Предыдущее видео">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      </button>
+      <div class="vfan__now" aria-live="polite">
+        <span class="vfan__tag" id="fanTag"></span>
+        <span class="vfan__name" id="fanTitle"></span>
+        <span class="vfan__count" id="fanCount"></span>
+      </div>
+      <button class="fan__btn" data-fan="1" aria-label="Следующее видео">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
     </div>
   </section>
 
-  <section class="section section--tight" id="snips" aria-label="Видео">
+  <section class="section section--tight" id="snips" aria-labelledby="all-title">
     <div class="container">
+      <h2 class="section__title snips__title" id="all-title">Все видео</h2>
       <ul class="snips" data-snips></ul>
     </div>
   </section>

@@ -29,9 +29,9 @@ body {
   color: var(--text);
   font: 500 16px/1.5 var(--f-body);
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: hidden; overflow-x: clip;
 }
-body.no-scroll { overflow: hidden; }
+body.no-scroll { overflow: hidden; overflow: clip; }
 /* Зерно поверх всего — убирает «цифровую» плоскость чёрного */
 body::after {
   content: ""; position: fixed; inset: 0; z-index: 70; pointer-events: none; opacity: .07;
@@ -151,7 +151,7 @@ h1, h2, h3, p, figure { margin: 0; }
 /* ---------- Первый экран ---------- */
 .hero {
   position: relative; min-height: 100svh; display: flex; align-items: flex-end;
-  overflow: hidden; isolation: isolate;
+  overflow: hidden; overflow: clip; isolation: isolate;
 }
 .hero__media { position: absolute; inset: 0; z-index: -1; }
 .hero__media img {
@@ -211,7 +211,7 @@ h1, h2, h3, p, figure { margin: 0; }
 }
 
 /* ---------- Бегущая строка ---------- */
-.marquee { background: var(--red); overflow: hidden; padding: 12px 0; transform: rotate(-1.2deg) scale(1.03); margin: 0 0 8px; }
+.marquee { background: var(--red); overflow: hidden; overflow: clip; padding: 12px 0; transform: rotate(-1.2deg) scale(1.03); margin: 0 0 8px; }
 .marquee__track { display: flex; align-items: center; gap: 28px; width: max-content; animation: marquee 28s linear infinite; }
 .marquee span { font: 700 22px/1 var(--f-display); text-transform: uppercase; letter-spacing: .06em; color: #fff; white-space: nowrap; }
 .marquee i { width: 10px; height: 10px; background: var(--bg); transform: rotate(45deg); flex: none; }
@@ -275,7 +275,7 @@ h1, h2, h3, p, figure { margin: 0; }
 }
 
 /* ---------- Музыка: в стиле страницы артиста ---------- */
-.music { position: relative; overflow: hidden; isolation: isolate; background: var(--surface); }
+.music { position: relative; overflow: hidden; overflow: clip; isolation: isolate; background: var(--surface); }
 .music__glow {
   position: absolute; z-index: -1; width: 720px; height: 720px; left: -240px; top: -260px; border-radius: 50%;
   background: radial-gradient(circle, rgba(227, 18, 11, .45), rgba(227, 18, 11, 0) 65%);
@@ -285,7 +285,7 @@ h1, h2, h3, p, figure { margin: 0; }
 
 .artist { display: flex; flex-direction: column; align-items: flex-start; gap: 20px; }
 .artist__avatar {
-  width: 140px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; flex: none;
+  width: 140px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; overflow: clip; flex: none;
   box-shadow: 0 20px 60px -10px rgba(227, 18, 11, .55);
 }
 .artist__avatar img { width: 100%; height: 100%; object-fit: cover; }
@@ -320,12 +320,12 @@ h1, h2, h3, p, figure { margin: 0; }
 .ptrack__n { position: relative; display: grid; place-items: center; height: 24px; color: var(--muted); font: 600 15px/1 var(--f-body); }
 .ptrack__n > * { grid-area: 1 / 1; }
 .ptrack__play, .ptrack__pause, .eq { opacity: 0; transition: opacity .15s; }
-.ptrack__cover { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; background: var(--surface-2); }
+.ptrack__cover { width: 48px; height: 48px; border-radius: 8px; overflow: hidden; overflow: clip; background: var(--surface-2); }
 .ptrack__cover img { width: 100%; height: 100%; object-fit: cover; }
 .ptrack__text { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
-.ptrack__title { font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color .2s; }
-.ptrack__artist { font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ptrack__progress { height: 2px; background: rgba(255,255,255,.12); border-radius: 2px; overflow: hidden; margin-top: 6px; display: none; }
+.ptrack__title { font-weight: 700; font-size: 16px; white-space: nowrap; overflow: hidden; overflow: clip; text-overflow: ellipsis; transition: color .2s; }
+.ptrack__artist { font-size: 14px; color: var(--muted); white-space: nowrap; overflow: hidden; overflow: clip; text-overflow: ellipsis; }
+.ptrack__progress { height: 2px; background: rgba(255,255,255,.12); border-radius: 2px; overflow: hidden; overflow: clip; margin-top: 6px; display: none; }
 .ptrack__progress i { display: block; height: 100%; background: var(--red-text); transform: scaleX(0); transform-origin: left; }
 .ptrack__dur { color: var(--muted); font-size: 14px; font-variant-numeric: tabular-nums; padding: 0 6px; }
 .ptrack__full { width: 40px; height: 40px; display: grid; place-items: center; border-radius: 50%; color: var(--muted); transition: color .2s, background-color .2s; }
@@ -356,7 +356,7 @@ h1, h2, h3, p, figure { margin: 0; }
 .player {
   position: fixed; left: 8px; right: 8px; bottom: calc(8px + env(safe-area-inset-bottom)); z-index: 35;
   display: grid; grid-template-columns: 44px minmax(0, 1fr) 44px auto 40px; align-items: center; gap: 10px;
-  padding: 8px; border-radius: 14px; overflow: hidden;
+  padding: 8px; border-radius: 14px; overflow: hidden; overflow: clip;
   background: rgba(28, 28, 28, .92); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
   box-shadow: 0 16px 40px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.08);
   transform: translateY(140%); transition: transform .3s var(--ease);
@@ -366,8 +366,8 @@ h1, h2, h3, p, figure { margin: 0; }
 .player__bar i { display: block; height: 100%; background: var(--red-text); transform: scaleX(0); transform-origin: left; }
 .player__cover { width: 44px; height: 44px; border-radius: 8px; object-fit: cover; }
 .player__text { display: flex; flex-direction: column; min-width: 0; }
-.player__title { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.player__artist { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.player__title { font-weight: 700; font-size: 15px; white-space: nowrap; overflow: hidden; overflow: clip; text-overflow: ellipsis; }
+.player__artist { font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; overflow: clip; text-overflow: ellipsis; }
 .player__btn { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; transition: background-color .2s, transform .16s ease-out; }
 .player__btn:active { transform: scale(.92); }
 .player__btn > svg { grid-area: 1 / 1; }
@@ -403,7 +403,7 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 }
 
 /* ---------- Магазин: коллаж ---------- */
-.shop { position: relative; overflow: hidden; isolation: isolate; padding: 72px 0 80px; }
+.shop { position: relative; overflow: hidden; overflow: clip; isolation: isolate; padding: 72px 0 80px; }
 .shop__type {
   position: absolute; z-index: -1; left: 0; right: 0; top: 46%; translate: 0 -50%;
   display: flex; flex-direction: column; align-items: center; gap: 0; pointer-events: none; rotate: -6deg;
@@ -431,9 +431,9 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 }
 .tee__tag {
   position: absolute; left: 10px; right: 10px; bottom: 6px; display: flex; align-items: baseline; gap: 8px; color: #141414;
-  font-size: 12px; line-height: 1.2; overflow: hidden;
+  font-size: 12px; line-height: 1.2; overflow: hidden; overflow: clip;
 }
-.tee__tag span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #555; font-weight: 600; }
+.tee__tag span { white-space: nowrap; overflow: hidden; overflow: clip; text-overflow: ellipsis; color: #555; font-weight: 600; }
 .tee__tag b {
   flex: none; font: 700 14px/1 var(--f-display); color: #fff; background: var(--red); padding: 5px 7px 4px; rotate: -3deg;
 }
@@ -468,7 +468,7 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 }
 
 /* ---------- Контакты ---------- */
-.contacts { position: relative; overflow: hidden; isolation: isolate; }
+.contacts { position: relative; overflow: hidden; overflow: clip; isolation: isolate; }
 .contacts__bg {
   position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%;
   object-fit: cover; object-position: 50% 30%; opacity: .22; filter: grayscale(1) contrast(1.1);
@@ -511,10 +511,10 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 
 /* ---------- Сниппеты: бесконечная лента ---------- */
 .snippets { padding: 72px 0 0; background: var(--bg); }
-.strip { overflow: hidden; }
+.strip { overflow: hidden; overflow: clip; }
 .strip__track { display: flex; width: max-content; animation: strip var(--dur, 40s) linear infinite; }
 .strip__track li { flex: 0 0 auto; }
-.strip__item { position: relative; display: block; width: 46vw; aspect-ratio: 9 / 16; overflow: hidden; background: var(--surface-2); }
+.strip__item { position: relative; display: block; width: 46vw; aspect-ratio: 9 / 16; overflow: hidden; overflow: clip; background: var(--surface-2); }
 .strip__item img, .strip__item video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .strip__item video { opacity: 0; transition: opacity .4s var(--ease); }
 .strip__item video.is-playing { opacity: 1; }
@@ -524,7 +524,7 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 }
 .strip__title {
   position: absolute; z-index: 2; left: 12px; right: 12px; bottom: 12px; text-align: left;
-  font: 700 16px/1.1 var(--f-display); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  font: 700 16px/1.1 var(--f-display); text-transform: uppercase; white-space: nowrap; overflow: hidden; overflow: clip; text-overflow: ellipsis;
 }
 @keyframes strip { to { transform: translateX(-50%); } }
 
@@ -544,17 +544,73 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
   .strip__track { animation: none; }
 }
 
-/* ---------- Страница «Видео» ---------- */
-.vhead { position: relative; padding: calc(var(--header-h) + 72px) 0 40px; overflow: hidden; isolation: isolate; }
-.vhead__bg {
-  position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; opacity: .35;
-  -webkit-mask-image: linear-gradient(to bottom, #000 30%, transparent); mask-image: linear-gradient(to bottom, #000 30%, transparent);
+/* ---------- Страница «Видео»: веер карточек ---------- */
+.vfan {
+  position: relative; overflow: hidden; overflow: clip; isolation: isolate; padding: calc(var(--header-h) + 20px) 0 32px;
+  background:
+    radial-gradient(55% 40% at 50% 48%, rgba(255, 70, 40, .5), transparent 70%),
+    linear-gradient(180deg, #3d0000 0%, #9e0b06 24%, #e3120b 50%, #8a0905 78%, var(--bg) 100%);
 }
-.vhead__lead { color: var(--muted); font-size: 17px; max-width: 38ch; margin-top: 20px; }
+.vfan__word {
+  position: absolute; z-index: -1; left: 0; right: 0; top: calc(var(--header-h) + 58px); margin: 0; text-align: center;
+  font: 700 clamp(64px, 19vw, 210px)/.86 var(--f-display); text-transform: uppercase; letter-spacing: -.01em;
+  color: transparent; -webkit-text-stroke: 2px rgba(255,255,255,.7);
+}
+.vfan__eyebrow { position: relative; color: rgba(255,255,255,.85); text-align: center; }
+.fan {
+  --w: 46vw; position: relative; height: calc(var(--w) * 16 / 9 + 90px); margin-top: 84px; touch-action: pan-y; user-select: none;
+}
+.fcard {
+  position: absolute; left: 50%; top: 20px; width: var(--w); aspect-ratio: 9 / 16; margin-left: calc(var(--w) / -2);
+  border-radius: 14px; overflow: hidden; overflow: clip; background: #111; padding: 0;
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08);
+  transform-origin: 50% 140%;
+  transform: translateX(calc(var(--o, 0) * 46%)) rotate(calc(var(--o, 0) * 12deg)) scale(calc(1 - var(--a, 0) * .06));
+  filter: brightness(calc(1 - var(--a, 0) * .22));
+  transition: transform .6s var(--ease), filter .6s var(--ease), opacity .4s;
+}
+.fcard.is-far { opacity: 0; pointer-events: none; }
+.fcard img, .fcard video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.fcard video { opacity: 0; transition: opacity .4s var(--ease); }
+.fcard video.is-playing { opacity: 1; }
+.fcard__play {
+  position: absolute; z-index: 2; left: 50%; top: 50%; translate: -50% -50%; width: 60px; height: 60px; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(10,10,10,.35); border: 1.5px solid rgba(255,255,255,.8); backdrop-filter: blur(6px);
+  opacity: 0; transition: opacity .3s, background-color .2s;
+}
+.fcard__play svg { margin-left: 3px; }
+.fcard.is-active .fcard__play { opacity: 1; }
+.fcard.is-active:active { scale: .98; }
+
+.vfan__bar { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 8px; }
+.vfan__now { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; min-width: 0; }
+.vfan__tag { font: 500 12px/1.2 var(--f-display); letter-spacing: .18em; text-transform: uppercase; color: rgba(255,255,255,.75); }
+.vfan__name { font: 700 26px/1.05 var(--f-display); text-transform: uppercase; }
+.vfan__count { font: 600 13px/1 var(--f-display); letter-spacing: .14em; color: rgba(255,255,255,.6); font-variant-numeric: tabular-nums; }
+.fan__btn {
+  width: 52px; height: 52px; flex: none; border-radius: 50%; display: grid; place-items: center;
+  border: 1px solid rgba(255,255,255,.45); background: rgba(10,10,10,.25); transition: background-color .2s, transform .16s ease-out;
+}
+.fan__btn:active { transform: scale(.92); }
+.snips__title { margin-bottom: 28px; }
+
+@media (min-width: 900px) {
+  .vfan { padding-bottom: 48px; }
+  .fan { --w: 270px; margin-top: 90px; }
+  .fcard { transform: translateX(calc(var(--o, 0) * 66%)) rotate(calc(var(--o, 0) * 8deg)) scale(calc(1 - var(--a, 0) * .06)); }
+  .vfan__word { line-height: .9; }
+  .vfan__bar { max-width: 640px; }
+  .vfan__name { font-size: 32px; }
+}
+@media (hover: hover) and (pointer: fine) {
+  .fcard:not(.is-active):hover { filter: brightness(calc(1.05 - var(--a, 0) * .18)); }
+  .fcard.is-active:hover .fcard__play, .fan__btn:hover { background: var(--red); border-color: var(--red); }
+}
+
 .section--tight { padding-top: 24px; }
 .snips { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .snip {
-  position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; overflow: hidden; border-radius: 6px;
+  position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; overflow: hidden; overflow: clip; border-radius: 6px;
   background: var(--surface-2); text-align: left; isolation: isolate;
   transition: transform .16s ease-out;
 }
@@ -599,7 +655,7 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 /* ---------- Страница «Концерты»: обложка + список ---------- */
 .page-inner .footer { padding-bottom: 40px; }
 .cover {
-  position: relative; overflow: hidden; isolation: isolate; padding-top: var(--header-h);
+  position: relative; overflow: hidden; overflow: clip; isolation: isolate; padding-top: var(--header-h);
   background:
     radial-gradient(60% 45% at 50% 42%, rgba(255, 70, 40, .55), transparent 70%),
     linear-gradient(180deg, #3d0000 0%, #9e0b06 26%, #e3120b 52%, #8a0905 76%, var(--bg) 100%);
@@ -687,7 +743,7 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 .modal__body iframe { width: 100%; height: 100%; border: 0; background: #fff; }
 .modal__stub { padding: 32px var(--gutter); display: flex; flex-direction: column; gap: 12px; font-size: 17px; }
 @media (min-width: 700px) {
-  .modal { inset: 0; margin: auto; height: min(820px, 90vh); border-radius: 8px; overflow: hidden; }
+  .modal { inset: 0; margin: auto; height: min(820px, 90vh); border-radius: 8px; overflow: hidden; overflow: clip; }
   .modal[open] { animation: fadeUp .3s var(--ease); }
   .modal.is-closing { animation: fadeDown .18s ease-in forwards; }
   .modal__head { padding: 20px 24px; }
