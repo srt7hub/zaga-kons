@@ -55,9 +55,10 @@ window.CONTACTS = {
   ]
 };
 
+// featured: true — ролик-«премьера» вверху вкладки «Видео».
 // Сниппеты (ig — оригинал рилса): video/<slug>.mp4 — полное видео, <slug>-preview.mp4 — беззвучное превью для карточки, <slug>.webp — обложка.
 window.VIDEOS = [
-  { slug: "auyl",              title: "Ауылда диско",      tag: "Скоро релиз", duration: "0:33" , ig: "https://www.instagram.com/reel/DEC_2yUMi9a/" },
+  { slug: "auyl",              title: "Ауылда диско",      tag: "Скоро релиз", duration: "0:33", featured: true, ig: "https://www.instagram.com/reel/DEC_2yUMi9a/" },
   { slug: "eto-bashkortostan", title: "Это Башкортостан",  tag: "Сниппет",     duration: "0:51" , ig: "https://www.instagram.com/reel/Dci_Nw-ixNW/" },
   { slug: "yaz-kile",          title: "Яз килә 2.0",       tag: "В сети · с Рустамом Гиззатуллиным", duration: "0:29" , ig: "https://www.instagram.com/reel/DPPDE7IguPQ/" },
   { slug: "yana-yorek",        title: "Яна йөрәк",         tag: "Скоро релиз", duration: "0:36" , ig: "https://www.instagram.com/reel/DX9Ch6fi4do/" },
