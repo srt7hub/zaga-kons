@@ -21,6 +21,7 @@
 }
 
 *, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: var(--header-h); -webkit-text-size-adjust: 100%; }
 body {
   margin: 0;
@@ -110,6 +111,8 @@ h1, h2, h3, p, figure { margin: 0; }
   display: flex; flex-direction: column; justify-content: space-between;
   opacity: 0; transition: opacity .25s var(--ease);
 }
+.menu[hidden] { display: none; }
+.menu:not(.is-open) { pointer-events: none; }
 .menu.is-open { opacity: 1; }
 .menu nav { display: flex; flex-direction: column; }
 .menu nav a {

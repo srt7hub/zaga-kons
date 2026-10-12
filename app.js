@@ -146,7 +146,8 @@
     list.addEventListener("click", e => { const b = e.target.closest("[data-track]"); if (b) play(+b.dataset.track, queue); });
     $("#trailerAll").addEventListener("click", () => {
       if (queue && cur > -1) { audio.paused ? audio.play() : audio.pause(); return; }
-      play(cur > -1 && !queue ? cur : 0, true);
+      cur = -1; // трейлер всегда начинается с первого трека
+      play(0, true);
     });
     $("#playerToggle").addEventListener("click", () => audio.paused ? audio.play() : audio.pause());
     $("#playerClose").addEventListener("click", () => {
