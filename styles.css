@@ -12,6 +12,7 @@
   --f-display: "Oswald", "Arial Narrow", sans-serif;
   --f-body: "Manrope", system-ui, sans-serif;
   --f-logo: "Dela Gothic One", "Oswald", sans-serif;
+  --f-brush: "Permanent Marker", "Oswald", cursive; /* обложка страницы «Концерты» */
 
   --gutter: 16px;
   --container: 1200px;
@@ -643,13 +644,13 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 .cover__word {
   position: absolute; z-index: 1; left: 0; right: 0; top: 11%;
   display: flex; justify-content: center; margin: 0;
-  font: 400 clamp(72px, 23vw, 300px)/.9 var(--f-logo); color: #fff; letter-spacing: -.02em;
+  font: 400 clamp(120px, 38vw, 420px)/.8 var(--f-brush); color: #fff; letter-spacing: -.02em;
   text-shadow: .045em .045em 0 #0a0a0a;
 }
 .cover__word span { display: inline-block; animation: letterIn .8s var(--ease) both; }
-.cover__word span:nth-child(1) { animation-delay: .1s; }
+.cover__word span:nth-child(1) { animation-delay: .1s; rotate: -5deg; }
 .cover__word span:nth-child(2) { animation-delay: .18s; }
-.cover__word span:nth-child(3) { animation-delay: .26s; }
+.cover__word span:nth-child(3) { animation-delay: .26s; rotate: 3deg; }
 .cover__word span:nth-child(4) { animation-delay: .34s; }
 .cover__artist {
   position: absolute; z-index: 2; bottom: 0; left: 50%; translate: -50% 0;
@@ -678,7 +679,7 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
 
 @media (min-width: 900px) {
   .cover__stage { height: min(82svh, 820px); min-height: 620px; }
-  .cover__word { top: 14%; font-size: clamp(170px, 18vw, 300px); }
+  .cover__word { top: 12%; font-size: clamp(220px, 26vw, 440px); }
   .cover__artist { width: auto; height: 96%; max-width: none; }
   .cover__sticker { right: 18%; top: 14%; font-size: 22px; }
 }
