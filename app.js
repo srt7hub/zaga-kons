@@ -51,10 +51,7 @@
     const next = concerts[0];
     const heroBuy = $("#heroBuy");
     if (next && heroBuy) {
-      $("#heroNext").innerHTML = `
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span>Ближайший концерт</p>
-        <p class="hero__next-date">${next.d.getDate()} ${MONTHS[next.d.getMonth()]} · ${esc(next.city)}</p>
-        <p class="hero__next-venue">${esc(next.venue)} · ${esc(next.time)}${next.address ? " · " + esc(next.address) : ""}</p>`;
+      $("#heroNext").innerHTML = `<p class="hero__next-date"><span class="dot" aria-hidden="true"></span>${next.d.getDate()} ${MONTHS[next.d.getMonth()]} · ${esc(next.city)}</p>`;
       heroBuy.dataset.gig = "0";
     } else if (heroBuy) {
       heroBuy.addEventListener("click", () => $("#concerts").scrollIntoView());

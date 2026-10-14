@@ -11,8 +11,8 @@
 
   --f-display: "Oswald", "Arial Narrow", sans-serif;
   --f-body: "Manrope", system-ui, sans-serif;
-  --f-logo: "Dela Gothic One", "Oswald", sans-serif;
-  --f-brush: "Permanent Marker", "Oswald", cursive; /* обложка страницы «Концерты» */
+  --f-logo: "Permanent Marker", "Oswald", cursive;
+  --f-brush: var(--f-logo);
 
   --gutter: 16px;
   --container: 1200px;
@@ -94,10 +94,10 @@ h1, h2, h3, p, figure { margin: 0; }
   display: flex; align-items: center; gap: 12px;
 }
 .logo {
-  font: 400 24px/1 var(--f-logo); color: var(--red); letter-spacing: -.01em;
-  margin-right: auto; padding: 6px 0;
+  font: 400 30px/1 var(--f-logo); color: var(--red); letter-spacing: .02em;
+  transform: rotate(-3deg); margin-right: auto; padding: 6px 0;
 }
-.logo--sm { font-size: 22px; margin: 0; }
+.logo--sm { font-size: 26px; margin: 0; }
 .nav { display: none; }
 .header__cta { margin-left: auto; }
 
@@ -134,7 +134,7 @@ h1, h2, h3, p, figure { margin: 0; }
 @media (min-width: 900px) {
   :root { --header-h: 76px; --gutter: 32px; }
   .burger, .menu { display: none !important; }
-  .logo { margin-right: 0; font-size: 28px; }
+  .logo { margin-right: 0; font-size: 34px; }
   .nav { display: flex; gap: 36px; margin: 0 auto; }
   .nav a {
     font: 500 15px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase;
@@ -170,18 +170,18 @@ h1, h2, h3, p, figure { margin: 0; }
   display: flex; flex-direction: column; gap: 16px;
 }
 .hero__title {
-  font: 400 clamp(72px, 23vw, 200px)/.9 var(--f-logo); color: var(--red);
+  font: 400 clamp(96px, 34vw, 260px)/.82 var(--f-logo); color: var(--red);
   display: flex; letter-spacing: -.01em; margin: 0 0 4px -.04em;
   text-shadow: 0 6px 40px rgba(227, 18, 11, .35);
 }
 .hero__title span { display: inline-block; animation: letterIn .8s var(--ease) both; }
-.hero__title span:nth-child(1) { animation-delay: .15s; }
+.hero__title span:nth-child(1) { animation-delay: .15s; transform: rotate(-4deg); }
 .hero__title span:nth-child(2) { animation-delay: .23s; }
 .hero__title span:nth-child(3) { animation-delay: .31s; }
 .hero__title span:nth-child(4) { animation-delay: .39s; }
 .hero__next { display: flex; flex-direction: column; gap: 4px; }
 .hero__next .eyebrow { display: flex; align-items: center; gap: 8px; color: var(--muted); font-size: 11px; }
-.hero__next-date { font: 600 18px/1.2 var(--f-display); letter-spacing: .04em; text-transform: uppercase; }
+.hero__next-date { display: flex; align-items: center; gap: 8px; font: 600 14px/1.2 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.85); }
 .hero__next-venue { color: var(--muted); font-size: 13px; }
 .dot {
   width: 8px; height: 8px; border-radius: 50%; background: var(--red-text); flex: none;
@@ -201,7 +201,7 @@ h1, h2, h3, p, figure { margin: 0; }
       linear-gradient(to top, var(--bg) 0%, rgba(10,10,10,0) 30%);
   }
   .hero__content { max-width: var(--container); margin: 0 auto; padding: var(--header-h) var(--gutter) 0; }
-  .hero__title { font-size: clamp(150px, 16vw, 250px); }
+  .hero__title { font-size: clamp(180px, 21vw, 320px); }
   .hero__actions { margin-top: 16px; }
   .hero__actions .btn--red { flex: none; }
   .hero__scroll {
