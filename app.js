@@ -287,7 +287,7 @@
       $("#videoTitle").textContent = v.title;
       $("[data-modal-body]", modal).innerHTML =
         `<video src="video/${esc(v.slug)}.mp4" poster="video/${esc(v.slug)}.webp" controls autoplay playsinline></video>` +
-        (v.ig ? `<a class="modal__ig" href="${esc(v.ig)}" target="_blank" rel="noopener">Смотреть в Instagram ↗</a>` : "");
+        (v.ig ? `<a class="modal__ig" href="${esc(v.ig)}" target="_blank" rel="noopener">Смотреть в Instagram <i class="i-ext" aria-hidden="true"></i></a>` : "");
       audio.pause();
       open();
     };

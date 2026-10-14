@@ -19,6 +19,8 @@
   --radius: 4px;
   --ease: cubic-bezier(.2, .7, .2, 1);
   --header-h: 64px;
+  --ic-ext: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17 17 7M8 7h9v9'/%3E%3C/svg%3E");
+  --ic-next: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M12 5l7 7-7 7'/%3E%3C/svg%3E");
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -47,6 +49,12 @@ ol, ul { list-style: none; margin: 0; padding: 0; }
 h1, h2, h3, p, figure { margin: 0; }
 :focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
 .muted { color: var(--muted); }
+/* Стрелки-иконки вместо символов ↗ и → (символы на iOS/Android превращаются в эмодзи) */
+.i-ext, .i-next {
+  display: inline-block; width: .85em; height: .85em; vertical-align: -.08em; flex: none; background: currentColor;
+  -webkit-mask: var(--ic-ext) center / contain no-repeat; mask: var(--ic-ext) center / contain no-repeat;
+}
+.i-next { -webkit-mask-image: var(--ic-next); mask-image: var(--ic-next); }
 
 .skip { position: absolute; left: -9999px; top: 8px; z-index: 100; background: var(--text); color: var(--bg); padding: 8px 12px; }
 .skip:focus { left: 8px; }
@@ -231,7 +239,7 @@ h1, h2, h3, p, figure { margin: 0; }
   font: 600 14px/1 var(--f-display); letter-spacing: .12em; text-transform: uppercase;
   padding: 14px 0; border-bottom: 2px solid var(--red); transition: color .2s;
 }
-.link-arrow::after { content: " →"; }
+.link-arrow::after { content: ""; display: inline-block; width: .9em; height: .9em; margin-left: .4em; vertical-align: -.1em; background: currentColor; -webkit-mask: var(--ic-next) center / contain no-repeat; mask: var(--ic-next) center / contain no-repeat; }
 
 /* ---------- Афиша ---------- */
 .tour { border-top: 1px solid var(--line); }
@@ -278,7 +286,7 @@ h1, h2, h3, p, figure { margin: 0; }
 /* ---------- Музыка: в стиле страницы артиста ---------- */
 .music { position: relative; overflow: hidden; overflow: clip; isolation: isolate; background: linear-gradient(to bottom, var(--bg) 0, var(--surface) 220px); }
 .music__head { margin-bottom: 36px; }
-.link-arrow--ext::after { content: " ↗"; }
+.link-arrow--ext::after { -webkit-mask-image: var(--ic-ext); mask-image: var(--ic-ext); }
 .music__glow {
   position: absolute; z-index: -1; width: 720px; height: 720px; left: -240px; top: -40px; border-radius: 50%;
   background: radial-gradient(circle, rgba(227, 18, 11, .45), rgba(227, 18, 11, 0) 65%);
@@ -490,7 +498,7 @@ body.has-player .footer { padding-bottom: calc(110px + env(safe-area-inset-botto
   display: flex; justify-content: space-between; align-items: center; min-height: 60px;
   border-bottom: 1px solid var(--line); font: 600 24px/1 var(--f-display); text-transform: uppercase; transition: color .2s, transform .25s var(--ease);
 }
-.socials a::after { content: "↗"; color: var(--muted); font-size: 20px; }
+.socials a::after { content: ""; width: 20px; height: 20px; flex: none; background: var(--muted); -webkit-mask: var(--ic-ext) center / contain no-repeat; mask: var(--ic-ext) center / contain no-repeat; }
 .projects__label { margin: 32px 0 8px; }
 .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .project {
