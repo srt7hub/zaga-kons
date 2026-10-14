@@ -9,7 +9,7 @@ window.CONCERTS = [
 // Блок «Музыка» в стиле страницы артиста. url трека — ссылка на трек в Яндекс Музыке
 // (пока стоит поиск по названию; заменить на точные ссылки треков).
 window.MUSIC = {
-  artistUrl: "https://music.yandex.ru/search?text=ZaGa",
+  artistUrl: "https://music.yandex.ru/artist/4557961",
   listeners: "66 725",
   avatar: "img/artist.webp",
   // trailer — нарезка самой популярной части; её длительность сайт берёт из файла сам (audio/<slug>.m4a). Пока вырезана из рилсов, заменить на свои нарезки.
