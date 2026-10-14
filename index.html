@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Oswald:wght@500;600;700&family=Permanent+Marker&display=swap" rel="stylesheet">
   <link rel="preload" as="image" href="img/hero-800.webp" imagesrcset="img/hero-800.webp 800w, img/hero-1400.webp 1400w" imagesizes="(min-width: 900px) 50vw, 100vw">
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=19">
 </head>
 <body>
 
@@ -117,6 +117,10 @@
   <!-- MUSIC: в стиле страницы артиста -->
   <section class="section music" id="music" aria-labelledby="music-title">
     <div class="music__glow" aria-hidden="true"></div>
+    <div class="container section__head music__head">
+      <h2 class="section__title" id="music-title">Музыка</h2>
+      <a class="link-arrow link-arrow--ext" href="https://music.yandex.ru/artist/4557961" target="_blank" rel="noopener" data-yandex>Яндекс Музыка</a>
+    </div>
     <div class="container music__grid">
       <div class="artist">
         <div class="artist__avatar">
@@ -124,7 +128,7 @@
         </div>
         <div class="artist__info">
           <p class="artist__label">Исполнитель</p>
-          <h2 class="artist__name" id="music-title">Zaga</h2>
+          <p class="artist__name">Zaga</p>
           <p class="chip">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg>
             <span id="listeners"></span> слушателей в месяц
@@ -245,7 +249,7 @@
   <div class="modal__body" data-modal-body></div>
 </dialog>
 
-<script src="data.js?v=18"></script>
-<script src="app.js?v=18"></script>
+<script src="data.js?v=19"></script>
+<script src="app.js?v=19"></script>
 </body>
 </html>

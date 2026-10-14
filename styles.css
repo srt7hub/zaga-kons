@@ -276,9 +276,11 @@ h1, h2, h3, p, figure { margin: 0; }
 }
 
 /* ---------- Музыка: в стиле страницы артиста ---------- */
-.music { position: relative; overflow: hidden; overflow: clip; isolation: isolate; background: var(--surface); }
+.music { position: relative; overflow: hidden; overflow: clip; isolation: isolate; background: linear-gradient(to bottom, var(--bg) 0, var(--surface) 220px); }
+.music__head { margin-bottom: 36px; }
+.link-arrow--ext::after { content: " ↗"; }
 .music__glow {
-  position: absolute; z-index: -1; width: 720px; height: 720px; left: -240px; top: -260px; border-radius: 50%;
+  position: absolute; z-index: -1; width: 720px; height: 720px; left: -240px; top: -40px; border-radius: 50%;
   background: radial-gradient(circle, rgba(227, 18, 11, .45), rgba(227, 18, 11, 0) 65%);
   filter: blur(40px); animation: glow 9s ease-in-out infinite alternate;
 }
